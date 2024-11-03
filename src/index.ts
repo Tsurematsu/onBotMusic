@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer";
 import inquirer from "inquirer";
 
-import { path, join } from "node:path";
+import path, { join } from "node:path";
 import { readFile, writeFile, readdir } from "node:fs/promises";
 import fs from "node:fs";
 
@@ -649,6 +649,3 @@ async function getConfigJsonFiles() {
 		throw error;
 	}
 }
-
-// "Tsure",
-// sαdkσdєv
