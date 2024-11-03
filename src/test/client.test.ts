@@ -1,5 +1,5 @@
 import { test, expect } from "bun:test";
-import Client from "../users/client";
+import Client from "@/users/client";
 
 test("client.ts", () => {
 	const client = new Client();
