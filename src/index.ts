@@ -1,14 +1,10 @@
-// Importa Puppeteer utilizando sintaxis ES6
 import puppeteer from "puppeteer";
-// biome-ignore lint/style/useNodejsImportProtocol: <explanation>
-import path from "path";
-// biome-ignore lint/style/useNodejsImportProtocol: <explanation>
-import { readFile, writeFile, readdir } from "fs/promises";
-// biome-ignore lint/style/useNodejsImportProtocol: <explanation>
-import { join } from "path";
 import inquirer from "inquirer";
-// biome-ignore lint/style/useNodejsImportProtocol: <explanation>
-import fs from "fs";
+
+import { path, join } from "node:path";
+import { readFile, writeFile, readdir } from "node:fs/promises";
+import fs from "node:fs";
+
 // Directorio para el perfil de usuario
 const userDataDir = path.join(process.cwd(), "./user_data");
 console.log("> userDataDir: ", userDataDir);
