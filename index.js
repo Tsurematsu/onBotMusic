@@ -4,7 +4,7 @@ import path from 'path';
 import { readFile, writeFile, readdir } from 'fs/promises';
 import { join } from 'path';
 import inquirer from 'inquirer';
-
+import fs from 'fs';
 // Directorio para el perfil de usuario
 const userDataDir = path.join(process.cwd(), 'user_data');
 const pathToExtension = path.join(process.cwd(), './Adblock-Plus-bloqueador-de-anuncios-gratis-Chrome-Web-Store');
@@ -93,9 +93,15 @@ async function showMenu() {
             console.clear();
             showMenu();
         }else{
+            if (answer.config === "config_default.json") {
+                console.clear();
+                console.log("No se puede eliminar el archivo por defecto.");
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                showMenu();
+                return;
+            }
             const filePath = join(process.cwd(), answer.config);
             console.log(`Archivo ${answer.config} eliminado exitosamente.`, filePath);
-            
             fs.unlink(filePath, (err) => {
                 if (err) {
                     console.error(`Error al eliminar el archivo: ${err.message}`);
@@ -103,7 +109,7 @@ async function showMenu() {
                 }
                 console.log('Archivo eliminado exitosamente.');
             });
-            
+            showMenu();
         }
 
     }else if (answer.config === "exit") {
