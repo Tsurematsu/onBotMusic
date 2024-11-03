@@ -1,13 +1,19 @@
 // Importa Puppeteer utilizando sintaxis ES6
 import puppeteer from 'puppeteer';
+// biome-ignore lint/style/useNodejsImportProtocol: <explanation>
 import path from 'path';
+// biome-ignore lint/style/useNodejsImportProtocol: <explanation>
 import { readFile, writeFile, readdir } from 'fs/promises';
+// biome-ignore lint/style/useNodejsImportProtocol: <explanation>
 import { join } from 'path';
 import inquirer from 'inquirer';
+// biome-ignore lint/style/useNodejsImportProtocol: <explanation>
 import fs from 'fs';
 // Directorio para el perfil de usuario
-const userDataDir = path.join(process.cwd(), 'user_data');
-const pathToExtension = path.join(process.cwd(), './Adblock-Plus-bloqueador-de-anuncios-gratis-Chrome-Web-Store');
+const userDataDir = path.join(process.cwd(), './user_data');
+console.log("> userDataDir: ", userDataDir);
+
+const pathToExtension = path.join(process.cwd(), './AdblockPlus');
 const args = [
     // '--start-maximized',
     `--disable-extensions-except=${pathToExtension}`,
@@ -19,8 +25,8 @@ let browser;
 let pageMusic;
 let page;
 let configInit;
-let urlConfigFile="./config_default.json";
-let onReadyToStep = ()=>{};
+let urlConfigFile = "config_default.json";
+let onReadyToStep = () => { };
 async function showMenu() {
     console.clear();
     const filesConfig = await getConfigJsonFiles();
@@ -76,10 +82,10 @@ async function showMenu() {
             selectorScroll: responses.selectorScroll,
             tagBot: responses.tagBot
         };
-        await writeJson(`config_${responses.nameConfig}.json`, config);
+        await writeJson(`./configs/config_${responses.nameConfig}.json`, config);
         urlConfigFile = `config_${responses.nameConfig}.json`;
         showMenu();
-    }else if(answer.config === "remove config"){
+    } else if (answer.config === "remove config") {
         const choices = [...filesConfig, "exit"];
         const answer = await inquirer.prompt([
             {
@@ -92,7 +98,7 @@ async function showMenu() {
         if (answer.config === "exit") {
             console.clear();
             showMenu();
-        }else{
+        } else {
             if (answer.config === "config_default.json") {
                 console.clear();
                 console.log("No se puede eliminar el archivo por defecto.");
@@ -112,14 +118,14 @@ async function showMenu() {
             showMenu();
         }
 
-    }else if (answer.config === "exit") {
+    } else if (answer.config === "exit") {
         console.clear();
         return;
     } else {
         urlConfigFile = answer.config;
         main();
     }
-    
+
 }
 
 showMenu();
@@ -129,11 +135,11 @@ async function main() {
     console.log("> configInit: ", configInit);
     await new Promise(resolve => setTimeout(resolve, 800));
     question();
-    const {channelURL, channelName, selectorScroll, botName, tagBot} = configInit;
-    
+    const { channelURL, channelName, selectorScroll, botName, tagBot } = configInit;
+
     console.clear();
     console.log("> starting: ", channelURL);
-    
+
     // Lanza un navegador sin cabeza (headless)
     browser = await puppeteer.launch({
         headless: false, // Cambia a false para mostrar la ventana
@@ -149,7 +155,7 @@ async function main() {
 
     console.clear();
     console.log("> loading page discord and music\n>");
-    
+
     const gotoMusic = async (url) => {
         pageMusic.bringToFront();
         await pageMusic.goto(url, {
@@ -201,7 +207,7 @@ async function main() {
         const tagClear = '[clear]';
         if (intoText.includes(tag)) {
             console.log(intoText.split(tag)[1]);
-        }else if (intoText === tagClear) {
+        } else if (intoText === tagClear) {
             console.clear();
         }
     });
@@ -237,36 +243,36 @@ async function main() {
     await page.waitForSelector(selector);
     console.clear();
     console.log(">Starting...\n>");
-    
+
     // Establecer el scroll hacia el fondo del div
     await page.evaluate((selector, channelName, botName) => {
-        function log(...args) {console.log("[devMSG]", ...args);}
-        function clear() {console.log("[clear]");}
+        function log(...args) { console.log("[devMSG]", ...args); }
+        function clear() { console.log("[clear]"); }
         clear();
         // log( ">Loading script for login channel\n>");
         script1();
         async function script1() {
             listUsers();
-            async function listUsers(){
+            async function listUsers() {
                 // const channelName = "Tsure's Channel";
                 // const selector = ".scroller_c43953.thin_eed6a8.scrollerBase_eed6a8.fade_eed6a8.customTheme_eed6a8";
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 try {
                     console.log("Loading function list users");
                     const lateralBar = document.querySelector(selector);
-                    if (lateralBar === null) {listUsers(); return};
+                    if (lateralBar === null) { listUsers(); return };
                     lateralBar.scrollTop = lateralBar.scrollHeight;
                     await new Promise(resolve => setTimeout(resolve, 500));
                     const listChannels = lateralBar.querySelectorAll("li");
-                    if (listChannels.length === 0) {listUsers(); return};
+                    if (listChannels.length === 0) { listUsers(); return };
                     let channelUser = [];
                     for (const channel of listChannels) {
                         const dndName = channel.getAttribute('data-dnd-name');
-                        if (dndName === channelName) {channelUser.push(channel);}
+                        if (dndName === channelName) { channelUser.push(channel); }
                     }
-                    if (channelUser.length === 0) {listUsers(); return};
+                    if (channelUser.length === 0) { listUsers(); return };
                     channelUser = channelUser[0];
-                    console.log("Channel found, ", channelUser);  
+                    console.log("Channel found, ", channelUser);
                     selectChannel(channelUser);
                     return;
                 } catch (error) {
@@ -275,14 +281,14 @@ async function main() {
                 }
             }
 
-            async function selectChannel(elementChanelUser){
+            async function selectChannel(elementChanelUser) {
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 try {
                     await new Promise(resolve => setTimeout(resolve, 1000));
                     const parentDivChannel = elementChanelUser.querySelectorAll("div")[0];
-                    if (parentDivChannel === null) {selectChannel(elementChanelUser); return};
+                    if (parentDivChannel === null) { selectChannel(elementChanelUser); return };
                     const intoChannelButton = parentDivChannel.querySelectorAll("a")[0];
-                    if (intoChannelButton === null) {selectChannel(elementChanelUser); return};
+                    if (intoChannelButton === null) { selectChannel(elementChanelUser); return };
                     intoChannelButton.click();
                     entryChannel();
                 } catch (error) {
@@ -290,7 +296,7 @@ async function main() {
                 }
             }
 
-            async function entryChannel(){
+            async function entryChannel() {
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 try {
                     const identifierUserTag = botName;
@@ -302,7 +308,7 @@ async function main() {
                             onElementUser = idUser;
                         }
                     }
-                    if (onElementUser === null) {entryChannel();return;}
+                    if (onElementUser === null) { entryChannel(); return; }
                     const topLevel = onElementUser.parentNode.parentNode.parentNode.parentNode.parentNode;
                     const onSelectActionDiv = topLevel.querySelectorAll("div")[0].querySelectorAll("div")[0].querySelectorAll("div")[0];
                     const selectorChannel = onSelectActionDiv.querySelectorAll("a")[0];
@@ -320,19 +326,19 @@ async function main() {
 
     console.clear();
     console.log("--------> waiting for page...\n>");
-    await new Promise(resolve => {onReadyToStep = resolve;});
-    
+    await new Promise(resolve => { onReadyToStep = resolve; });
+
     // Simular la combinación de teclas Ctrl + U
-    async function pressChat(){
+    async function pressChat() {
         await page.keyboard.down('Control');  // Presionar la tecla Control
         await page.keyboard.press('KeyU');    // Presionar la tecla U
         await page.keyboard.up('Control');    // Soltar la tecla Control
         return true;
     }
-    
+
     console.clear();
     console.log("--------> loading chat\n>");
-    
+
     await page.evaluate((tagBotIn) => {
         main();
         async function main() {
@@ -355,7 +361,7 @@ async function main() {
 
             async function listenChat() {
                 await new Promise(resolve => setTimeout(resolve, 2000));
-                let onElement = [];
+                const onElement = [];
                 let users = {};
                 let cachedUser = "";
                 for (element of document.querySelectorAll('li')) {
@@ -400,7 +406,7 @@ async function main() {
             }
 
             async function filter() {
-                
+
             }
 
             async function actionCommand(command) {
@@ -418,10 +424,11 @@ async function main() {
                         window.controlsMusic("pause", null);
                     },
                     "volume": (volume = null) => {
-                        if (volume === null) return;
-                        const volumeInto = parseFloat(volume);
-                        if (isNaN(volumeInto)) return;
-                        window.controlsMusic("volume", volumeInto);
+                        // chekar esto
+                        // if (volume === null) return;
+                        // const volumeInto = parseFloat(volume);
+                        // if (isNaN(volumeInto)) return;
+                        // window.controlsMusic("volume", volumeInto);
                     },
                     "clear": async () => {
                         await gotoMusic("about:blank");
@@ -456,7 +463,7 @@ async function writeJson(fileName, data) {
 async function readUsers() {
     try {
         // Get the absolute path to the JSON file
-        const filePath = join(process.cwd(), 'users.json');
+        const filePath = join(process.cwd(), './configs/users.json');
 
         // Read and parse the JSON file
         const jsonData = await readFile(filePath, 'utf8');
@@ -470,9 +477,12 @@ async function readUsers() {
 };
 
 let saveUsersToJsonCache = "";
-async function saveUsersToJson(newUsers, url="logUsers.json") {
-    if (saveUsersToJsonCache !== newUsers && url==="logUsers.json") {
+
+// TODO: refactor this function
+async function saveUsersToJson(newUsers, url = "./logs/logUsers.json") {
+    if (saveUsersToJsonCache !== newUsers && url ===  "./logs/logUsers.json") {
         saveUsersToJsonCache = newUsers;
+        console.clear();
         console.log("\n\n--> users on chat: ", JSON.parse(newUsers));
     }
     const filePath = join(process.cwd(), url);
@@ -484,6 +494,7 @@ async function saveUsersToJson(newUsers, url="logUsers.json") {
     return true;
 };
 
+
 async function question() {
     const answer = await inquirer.prompt([
         {
@@ -494,6 +505,7 @@ async function question() {
     ]);
 
     const respuesta = answer.response;
+    // TODO: refactor this (change else if to switch) or (a list key value)
     if (respuesta === "") {
         console.clear();
         console.log("--------> closing app");
@@ -506,14 +518,16 @@ async function question() {
             console.log("--------> browser closed");
             await new Promise(resolve => setTimeout(resolve, 500));
             console.clear();
-        } catch (error) {}
+        } catch (error) { }
         console.log("--------> app closed");
-        
+
         return;
+
+        // biome-ignore lint/style/noUselessElse: <explanation>
     } else if (respuesta.includes("add")) {
         const newUser = respuesta.split(" ")[1];
         let onUsers = await readUsers();
-        let obj = onUsers.reduce((acc, key) => {
+        const obj = onUsers.reduce((acc, key) => {
             acc[key] = "";
             return acc;
         }, {});
@@ -521,16 +535,17 @@ async function question() {
         onUsers = Object.keys(obj);
         console.clear();
         console.log(`Okay adding ${newUser}------->`, onUsers);
-        await saveUsersToJson(JSON.stringify(onUsers), "users.json");
+        await saveUsersToJson(JSON.stringify(onUsers), "./configs/users.json");
         await new Promise(resolve => setTimeout(resolve, 800));
         console.clear();
         saveUsersToJsonCache = "";
         question();
         return;
+        // biome-ignore lint/style/noUselessElse: <explanation>
     } else if (respuesta.includes("remove")) {
         const newUser = respuesta.split(" ")[1];
         let onUsers = await readUsers();
-        let obj = onUsers.reduce((acc, key) => {
+        const obj = onUsers.reduce((acc, key) => {
             acc[key] = "";
             return acc;
         }, {});
@@ -544,9 +559,10 @@ async function question() {
         saveUsersToJsonCache = "";
         question();
         return;
+        // biome-ignore lint/style/noUselessElse: <explanation>
     } else if (respuesta.includes("list")) {
-        let onUsers = await readUsers();
-        console.log(`Okay listing users------->`, onUsers);
+        const onUsers = await readUsers();
+        console.log("Okay listing users------->", onUsers);
         await new Promise(resolve => setTimeout(resolve, 20000));
         console.clear();
         saveUsersToJsonCache = "";
@@ -560,7 +576,7 @@ async function question() {
 
 async function getConfigJsonFiles() {
     try {
-        const directoryPath = process.cwd();
+        const directoryPath = path.join(process.cwd(), './src/configs');
         const files = await readdir(directoryPath);
         const configJsonFiles = files.filter(file => file.endsWith('.json') && file.includes('config'));
         return configJsonFiles;
