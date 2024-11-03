@@ -3,7 +3,7 @@ import type { Config } from "./config";
 enum Os {
 	linux = "linux",
 	darwin = "darwin",
-	windows = "windows",
+	windows = "win32",
 }
 
 interface User {
