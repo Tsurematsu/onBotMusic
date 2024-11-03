@@ -1,1 +1,3 @@
-import path from "path";
+export default new class Config {
+    
+}
