@@ -30,7 +30,12 @@ let onReadyToStep = () => {};
 async function showMenu() {
 	console.clear();
 	const filesConfig = await getConfigJsonFiles();
-	const choices = [...filesConfig, "make new config", "remove config", "exit"];
+	const choices = [
+		...filesConfig,
+		"make new config",
+		"remove config",
+		"exit",
+	];
 	const answer = await inquirer.prompt([
 		{
 			type: "list",
@@ -83,7 +88,10 @@ async function showMenu() {
 			selectorScroll: responses.selectorScroll,
 			tagBot: responses.tagBot,
 		};
-		await writeJson(`./configs/config_${responses.nameConfig}.json`, config);
+		await writeJson(
+			`./configs/config_${responses.nameConfig}.json`,
+			config,
+		);
 		urlConfigFile = `config_${responses.nameConfig}.json`;
 		showMenu();
 	} else if (answer.config === "remove config") {
@@ -108,10 +116,15 @@ async function showMenu() {
 				return;
 			}
 			const filePath = join(process.cwd(), answer.config);
-			console.log(`Archivo ${answer.config} eliminado exitosamente.`, filePath);
+			console.log(
+				`Archivo ${answer.config} eliminado exitosamente.`,
+				filePath,
+			);
 			fs.unlink(filePath, (err) => {
 				if (err) {
-					console.error(`Error al eliminar el archivo: ${err.message}`);
+					console.error(
+						`Error al eliminar el archivo: ${err.message}`,
+					);
 					return;
 				}
 				console.log("Archivo eliminado exitosamente.");
@@ -269,7 +282,9 @@ async function main() {
 							return;
 						}
 						lateralBar.scrollTop = lateralBar.scrollHeight;
-						await new Promise((resolve) => setTimeout(resolve, 500));
+						await new Promise((resolve) =>
+							setTimeout(resolve, 500),
+						);
 						const listChannels = lateralBar.querySelectorAll("li");
 						if (listChannels.length === 0) {
 							listUsers();
@@ -277,7 +292,8 @@ async function main() {
 						}
 						let channelUser = [];
 						for (const channel of listChannels) {
-							const dndName = channel.getAttribute("data-dnd-name");
+							const dndName =
+								channel.getAttribute("data-dnd-name");
 							if (dndName === channelName) {
 								channelUser.push(channel);
 							}
@@ -299,14 +315,17 @@ async function main() {
 				async function selectChannel(elementChanelUser) {
 					await new Promise((resolve) => setTimeout(resolve, 1000));
 					try {
-						await new Promise((resolve) => setTimeout(resolve, 1000));
+						await new Promise((resolve) =>
+							setTimeout(resolve, 1000),
+						);
 						const parentDivChannel =
 							elementChanelUser.querySelectorAll("div")[0];
 						if (parentDivChannel === null) {
 							selectChannel(elementChanelUser);
 							return;
 						}
-						const intoChannelButton = parentDivChannel.querySelectorAll("a")[0];
+						const intoChannelButton =
+							parentDivChannel.querySelectorAll("a")[0];
 						if (intoChannelButton === null) {
 							selectChannel(elementChanelUser);
 							return;
@@ -322,7 +341,8 @@ async function main() {
 					await new Promise((resolve) => setTimeout(resolve, 1000));
 					try {
 						const identifierUserTag = botName;
-						const identifierElement = document.querySelectorAll("div");
+						const identifierElement =
+							document.querySelectorAll("div");
 						let onElementUser = null;
 						for (const idUser of identifierElement) {
 							const elementText = idUser.innerHTML;
@@ -335,17 +355,22 @@ async function main() {
 							return;
 						}
 						const topLevel =
-							onElementUser.parentNode.parentNode.parentNode.parentNode
-								.parentNode;
+							onElementUser.parentNode.parentNode.parentNode
+								.parentNode.parentNode;
 						const onSelectActionDiv = topLevel
 							.querySelectorAll("div")[0]
 							.querySelectorAll("div")[0]
 							.querySelectorAll("div")[0];
-						const selectorChannel = onSelectActionDiv.querySelectorAll("a")[0];
+						const selectorChannel =
+							onSelectActionDiv.querySelectorAll("a")[0];
 						selectorChannel.click();
-						await new Promise((resolve) => setTimeout(resolve, 500));
+						await new Promise((resolve) =>
+							setTimeout(resolve, 500),
+						);
 						await window.pressChat();
-						await new Promise((resolve) => setTimeout(resolve, 500));
+						await new Promise((resolve) =>
+							setTimeout(resolve, 500),
+						);
 						await window.nextStep();
 					} catch (error) {
 						entryChannel();
