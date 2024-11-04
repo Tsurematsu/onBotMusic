@@ -7,7 +7,9 @@ import { writeFile } from "node:fs/promises";
  * @param {Object} data - The JavaScript object to be converted to JSON and written to the file.
  * @param {function(Error):void} [errorCallBack] - Optional callback function to handle errors.
  */
-export default function writeJson(filePath, data, errorCallBack) {
+
+// biome-ignore lint/style/useDefaultParameterLast: <explanation>
+export  default function writeJson(filePath="", data, errorCallBack) {
     const patchFile = path.join(getPath(), filePath);
     try {
         const jsonData = JSON.stringify(data, null, 2);

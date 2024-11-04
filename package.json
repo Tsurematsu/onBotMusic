@@ -5,7 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"start": "bun ./src/index.ts",
-		"dev": "bun ./src/index.ts",
+		"dev": "bun ./src/testIndex.js",
 		"test": "bun test"
 	},
 	"keywords": [],
