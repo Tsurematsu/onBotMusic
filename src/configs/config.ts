@@ -1,3 +1,3 @@
-export default new class Config {
-    
-}
+import xdg from "@folder/xdg";
+
+const dir = xdg({ plataform: "linux" });
