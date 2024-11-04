@@ -1,5 +1,4 @@
-import readJson from "../utils/readJson.js";
-import writeJson from "../utils/writeJson.js";
+import { readJson, writeJson } from "../utils/json.js";
 /**
  * @typedef {Object} ConfigData
  * @property {string} nameChannel - The name of the configuration.
