@@ -1,4 +1,5 @@
 import { readJson, writeJson } from "../utils/json.js";
+import listFiles from "../utils/listFiles.js";
 /**
  * @typedef {Object} ConfigData
  * @property {string} nameChannel - The name of the configuration.
@@ -53,6 +54,10 @@ export default new class Config {
         makeConfig(data, name) {
             const newPatchFile = `./temp/${name + name.includes(".json") ? "" : ".json"}`;
             writeJson(newPatchFile, data);
+        }
+
+        getConfigs() {
+            return listFiles("./temp");
         }
     }
 
