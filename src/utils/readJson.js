@@ -37,11 +37,8 @@ function getPath() {
 		if (currentFile !== callerFile) break;
 	}
     Error.prepareStackTrace = originalFunc;
-	
-	// file:///C:/Users/danie/Documents/localUtils/onBotMusic/src
-    if (callerFile.startsWith('file://')) {
+	if (callerFile.startsWith('file://')) {
         callerFile = callerFile.substring(8);
     }
-    // C:/Users/danie/Documents/localUtils/onBotMusic/src
-	return path.dirname(callerFile);
+    return path.dirname(callerFile);
 }
