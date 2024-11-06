@@ -1,5 +1,6 @@
 import { readJson, writeJson } from "../utils/json.js";
 import listFiles from "../utils/listFiles.js";
+import Path from "@/config/config";
 /**
  * @typedef {Object} ConfigData
  * @property {string} nameChannel - The name of the configuration.
@@ -12,6 +13,7 @@ import listFiles from "../utils/listFiles.js";
  * Configuration class for managing Discord channel configurations.
  */
 export default new (class Config {
+	path_config = Path.getConfig();
 	/**
 	 * Configuration class for Discord channel.
 	 */
