@@ -1,5 +1,5 @@
-import path from "node:path";
 import { readdir } from "node:fs/promises";
+import path from "node:path";
 /**
  * Lists files in the specified directory that match the given validation function.
  *
@@ -7,8 +7,8 @@ import { readdir } from "node:fs/promises";
  * @returns {Promise<string[]>} A promise that resolves to an array of valid file names.
  * @throws Will throw an error if there is an issue reading the directory.
  */
-export default async function listFiles(pathFile="") {
-    try {
+export default async function listFiles(pathFile = "") {
+	try {
 		const modulePath = getPath();
 		const directoryPath = path.join(modulePath, pathFile);
 		const files = await readdir(directoryPath);
@@ -21,8 +21,8 @@ export default async function listFiles(pathFile="") {
 
 function getPath() {
 	return "";
-    // const originalFunc = Error.prepareStackTrace;
-    // let callerFile;
+	// const originalFunc = Error.prepareStackTrace;
+	// let callerFile;
 	// const err = new Error();
 	// let currentFile;
 	// // biome-ignore lint/complexity/useArrowFunction: <explanation>
@@ -32,9 +32,9 @@ function getPath() {
 	// 	callerFile = err.stack.shift().getFileName();
 	// 	if (currentFile !== callerFile) break;
 	// }
-    // Error.prepareStackTrace = originalFunc;
+	// Error.prepareStackTrace = originalFunc;
 	// if (callerFile.startsWith('file://')) {
-    //     callerFile = callerFile.substring(8);
-    // }
-    // return path.dirname(callerFile);
+	//     callerFile = callerFile.substring(8);
+	// }
+	// return path.dirname(callerFile);
 }

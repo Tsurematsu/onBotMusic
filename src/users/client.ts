@@ -1,4 +1,3 @@
-import { join } from "node:path";
 
 export default class Client {
 	cosntructor() {

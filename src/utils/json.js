@@ -1,5 +1,5 @@
 // import path from "node:path";
-import fs from 'node:fs';
+import fs from "node:fs";
 import { readFile, writeFile } from "node:fs/promises";
 /**
  * Reads a JSON file and parses its content.
