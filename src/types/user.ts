@@ -1,13 +1,12 @@
 import type { Config } from "./config";
 
-enum Os {
-	linux = "linux",
-	darwin = "darwin",
-	windows = "win32",
-}
+// TODO: add more properties if needed - Os support
+export type Os = "linux" | "darwin" | "win32";
 
-interface User {
+export interface User {
 	// TODO: add more properties if needed
 	os: Os;
 	config: Config;
+	// NOTE: Methods
+	// setup(): void;
 }

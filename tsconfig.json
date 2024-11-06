@@ -2,8 +2,9 @@
   "compilerOptions": {
     "paths": {
       "@/*": ["./src/*"],
-      "@/config/*": ["./src/config/*"],
-      "@/utils/*": ["./src/utils/*"]
+      "@config/*": ["./src/config/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@types/*": ["./src/types/*"]
     }
   }
 }
