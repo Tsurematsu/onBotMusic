@@ -1,22 +1,22 @@
 {
-  "name": "onbotmusic",
-  "version": "1.0.0",
-  "main": "index.ts",
-  "type": "module",
-  "scripts": {
-    "start": "bun ./src/index.ts",
-    "dev": "bun ./src/test/testIndex.js",
-    "test": "bun test"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "inquirer": "^12.0.1",
-    "puppeteer": "^23.6.1"
-  },
-  "devDependencies": {
-    "@folder/xdg": "^4.0.1"
-  }
+	"name": "onbotmusic",
+	"version": "1.0.0",
+	"main": "index.ts",
+	"type": "module",
+	"scripts": {
+		"start": "bun ./src/index.ts",
+		"dev": "bun ./src/test/testIndex.js",
+		"test": "bun test"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"description": "",
+	"dependencies": {
+		"inquirer": "^12.0.1",
+		"puppeteer": "^23.6.1"
+	},
+	"devDependencies": {
+		"@folder/xdg": "^4.0.1"
+	}
 }

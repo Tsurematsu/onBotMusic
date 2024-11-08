@@ -1,1 +1,1 @@
-type Roles = "admin" | "user" | "permitted";
+type Roles = 'admin' | 'user' | 'permitted'

@@ -1,6 +1,6 @@
-import { readJson, writeJson } from "../utils/json.js";
-import listFiles from "../utils/listFiles.js";
-import Path from "@/config/config";
+import { readJson, writeJson } from '../utils/json.js'
+import listFiles from '../utils/listFiles.js'
+import Path from '@/config/config'
 /**
  * @typedef {Object} ConfigData
  * @property {string} nameChannel - The name of the configuration.
@@ -13,7 +13,7 @@ import Path from "@/config/config";
  * Configuration class for managing Discord channel configurations.
  */
 export default new (class Config {
-	path_config = Path.getConfig();
+	path_config = Path.getConfig()
 	/**
 	 * Configuration class for Discord channel.
 	 */
@@ -22,14 +22,14 @@ export default new (class Config {
 		 * Path to the default configuration file.
 		 * @type {string}
 		 */
-		patchFile = "./temp/config_default.json";
+		patchFile = './temp/config_default.json'
 
 		/**
 		 * Selects a new configuration file.
 		 * @param {string} patchFile - The path to the new configuration file.
 		 */
 		selectConfigFile(patchFile) {
-			this.patchFile = patchFile;
+			this.patchFile = patchFile
 		}
 
 		/**
@@ -37,7 +37,7 @@ export default new (class Config {
 		 * @returns {ConfigData} The configuration data.
 		 */
 		get() {
-			return readJson(this.patchFile);
+			return readJson(this.patchFile)
 		}
 
 		/**
@@ -45,7 +45,7 @@ export default new (class Config {
 		 * @param {ConfigData} data - The configuration data to write.
 		 */
 		set(data) {
-			writeJson(this.patchFile, data);
+			writeJson(this.patchFile, data)
 		}
 
 		/**
@@ -54,25 +54,25 @@ export default new (class Config {
 		 * @param {string} name - The name of the new configuration file.
 		 */
 		makeConfig(data, name) {
-			const newPatchFile = `./temp/${name + name.includes(".json") ? "" : ".json"}`;
-			writeJson(newPatchFile, data);
+			const newPatchFile = `./temp/${name + name.includes('.json') ? '' : '.json'}`
+			writeJson(newPatchFile, data)
 		}
 
 		getConfigs() {
-			return listFiles("./temp");
+			return listFiles('./temp')
 		}
-	})();
+	})()
 
 	browserParams = new (class {
-		patchFile = "./config/browser_params.json";
+		patchFile = './config/browser_params.json'
 		selectConfigFile(patchFile) {
-			this.patchFile = patchFile;
+			this.patchFile = patchFile
 		}
 		get() {
-			return readJson(this.patchFile);
+			return readJson(this.patchFile)
 		}
 		set(data) {
-			writeJson(this.patchFile, data);
+			writeJson(this.patchFile, data)
 		}
-	})();
-})();
+	})()
+})()
