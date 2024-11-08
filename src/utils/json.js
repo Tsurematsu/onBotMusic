@@ -1,6 +1,7 @@
-// import path from "node:path";
-import fs from 'node:fs'
-import { readFile, writeFile } from 'node:fs/promises'
+import fs, { existsSync } from 'node:fs'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
+import path from 'node:path'
+
 /**
  * Reads a JSON file and parses its content.
  *
@@ -68,24 +69,41 @@ export function writeJson(filePath = '', data, errorCallBack) {
 	}
 }
 
-function getPath() {
-	return ''
-	// const originalFunc = Error.prepareStackTrace;
-	// let callerFile;
-	// const err = new Error();
-	// let currentFile;
-	// // biome-ignore lint/complexity/useArrowFunction: <explanation>
-	// Error.prepareStackTrace = function (_, stack) {
-	// 	return stack;
-	// };
-	// currentFile = err.stack.shift().getFileName();
-	// while (err.stack.length) {
-	// 	callerFile = err.stack.shift().getFileName();
-	// 	if (currentFile !== callerFile) break;
-	// }
-	// Error.prepareStackTrace = originalFunc;
-	// if (callerFile.startsWith("file://")) {
-	// 	callerFile = callerFile.substring(8);
-	// }
-	// return path.dirname(callerFile);
+/**
+ * Verifies the existence and content of a JSON file at the specified file path.
+ * If the file or its directory does not exist, it creates them.
+ * If the file is empty, it returns a status indicating the file has no data.
+ *
+ * @param {string} filePath - The path to the JSON file to verify.
+ * @returns {Promise<{status: boolean, msg: string, error: Error|null, data: object}>}
+ * An object containing the status of the file verification, a message, and any error encountered.
+ */
+export async function verifyJsonFile(filePath) {
+	try {
+		const dir = path.dirname(filePath)
+		await mkdir(dir, { recursive: true })
+		if (!(await existsSync(filePath))) {
+			await writeFile(filePath, '{}', 'utf8')
+			return { status: false, msg: 'not exist file', error: null, data: {} }
+		}
+	} catch (error) {
+		console.log(error)
+		await writeFile(filePath, '{}', 'utf8')
+		return {
+			status: false,
+			msg: 'not exist file and error',
+			error: error,
+			data: {},
+		}
+	}
+	const inObject = await readFile(filePath, 'utf8')
+	if (inObject === '{}') {
+		return { status: false, msg: 'empty file, no data', error: null, data: {} }
+	}
+	return {
+		status: true,
+		msg: 'file exist and has data',
+		error: null,
+		data: inObject,
+	}
 }

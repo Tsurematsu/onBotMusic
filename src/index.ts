@@ -16,10 +16,10 @@ const args = [
 	'--no-sandbox',
 	'--disable-setuid-sandbox',
 ]
-let browser
-let pageMusic
-let page
-let configInit
+let browser: unknown
+let pageMusic: unknown
+let page: unknown
+let configInit: unknown
 let urlConfigFile = 'config_default.json'
 let onReadyToStep = () => {}
 async function showMenu() {
