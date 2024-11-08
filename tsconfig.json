@@ -1,10 +1,10 @@
 {
-  "compilerOptions": {
-    "paths": {
-      "@/*": ["./src/*"],
-      "@config/*": ["./src/config/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@types/*": ["./src/types/*"]
-    }
-  }
+	"compilerOptions": {
+		"paths": {
+			"@/*": ["./src/*"],
+			"@config/*": ["./src/config/*"],
+			"@utils/*": ["./src/utils/*"],
+			"@types/*": ["./src/types/*"]
+		}
+	}
 }

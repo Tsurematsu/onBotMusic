@@ -1,21 +1,21 @@
-import type { User, Os } from "../types/user";
-import type { Config } from "../types/config";
+import type { User, Os } from '../types/user'
+import type { Config } from '../types/config'
 
 export default class Client implements User {
-	os: Os;
-	config: Config;
+	os: Os
+	config: Config
 	constructor(os: Os, config: Config) {
-		this.os = os;
-		this.config = config;
+		this.os = os
+		this.config = config
 	}
 
 	getOs(): Os {
-		this.os = process.platform as Os;
-		return this.os;
+		this.os = process.platform as Os
+		return this.os
 	}
 
 	getConfig(): Config {
-		return this.config;
+		return this.config
 	}
 
 	setup() {

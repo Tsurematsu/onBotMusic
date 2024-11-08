@@ -1,6 +1,6 @@
 // import path from "node:path";
-import fs from "node:fs";
-import { readFile, writeFile } from "node:fs/promises";
+import fs from 'node:fs'
+import { readFile, writeFile } from 'node:fs/promises'
 /**
  * Reads a JSON file and parses its content.
  *
@@ -10,18 +10,18 @@ import { readFile, writeFile } from "node:fs/promises";
  */
 
 // biome-ignore lint/style/useDefaultParameterLast: <explanation>
-export async function readJson(filePath = "", errorCallBack) {
+export async function readJson(filePath = '', errorCallBack) {
 	// const patchFile = path.join(getPath(), filePath);
-	const patchFile = filePath;
+	const patchFile = filePath
 	try {
-		const jsonData = await readFile(patchFile, "utf8");
-		const data = JSON.parse(jsonData);
-		return data;
+		const jsonData = await readFile(patchFile, 'utf8')
+		const data = JSON.parse(jsonData)
+		return data
 	} catch (error) {
 		if (errorCallBack) {
-			errorCallBack(error);
+			errorCallBack(error)
 		} else {
-			return error.message;
+			return error.message
 		}
 	}
 }
@@ -34,16 +34,16 @@ export async function readJson(filePath = "", errorCallBack) {
 export function deleteJson(pathFile) {
 	// const modulePath = getPath();
 	// const filePath = path.join(modulePath, pathFile);
-	const filePath = pathFile;
+	const filePath = pathFile
 	return new Promise((resolve, reject) => {
 		fs.unlink(filePath, (err) => {
 			if (err) {
-				reject(err);
+				reject(err)
 			} else {
-				resolve();
+				resolve()
 			}
-		});
-	});
+		})
+	})
 }
 
 /**
@@ -54,22 +54,22 @@ export function deleteJson(pathFile) {
  * @param {function(Error):void} [errorCallBack] - Optional callback function to handle errors.
  */
 // biome-ignore lint/style/useDefaultParameterLast: <explanation>
-export function writeJson(filePath = "", data, errorCallBack) {
+export function writeJson(filePath = '', data, errorCallBack) {
 	// const patchFile = path.join(getPath(), filePath);
-	const patchFile = filePath;
+	const patchFile = filePath
 	try {
-		const jsonData = JSON.stringify(data, null, 2);
-		writeFile(patchFile, jsonData, "utf8");
-		return;
+		const jsonData = JSON.stringify(data, null, 2)
+		writeFile(patchFile, jsonData, 'utf8')
+		return
 	} catch (error) {
 		if (errorCallBack) {
-			errorCallBack(error);
+			errorCallBack(error)
 		}
 	}
 }
 
 function getPath() {
-	return "";
+	return ''
 	// const originalFunc = Error.prepareStackTrace;
 	// let callerFile;
 	// const err = new Error();

@@ -1,5 +1,5 @@
-import { readdir } from "node:fs/promises";
-import path from "node:path";
+import { readdir } from 'node:fs/promises'
+import path from 'node:path'
 /**
  * Lists files in the specified directory that match the given validation function.
  *
@@ -7,14 +7,14 @@ import path from "node:path";
  * @returns {Promise<string[]>} A promise that resolves to an array of valid file names.
  * @throws Will throw an error if there is an issue reading the directory.
  */
-export default async function listFiles(pathFile = "") {
+export default async function listFiles(pathFile = '') {
 	try {
-		const modulePath = getPath();
-		const directoryPath = path.join(modulePath, pathFile);
-		const files = await readdir(directoryPath);
-		return files;
+		const modulePath = getPath()
+		const directoryPath = path.join(modulePath, pathFile)
+		const files = await readdir(directoryPath)
+		return files
 	} catch (error) {
-		console.error("Error reading directory:", error.message);
-		throw error;
+		console.error('Error reading directory:', error.message)
+		throw error
 	}
 }
