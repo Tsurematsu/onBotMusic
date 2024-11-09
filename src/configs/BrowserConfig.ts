@@ -15,6 +15,7 @@ export default class BrowserConfig {
 		'--no-sandbox',
 		`--disable-extensions-except=${this.local_path.extensions}`,
 		`--load-extension=${this.local_path.extensions}`,
+		'--disable-setuid-sandbox',
 	]
 	async load() {
 		await kDir(this.local_path.runtime)
