@@ -1,11 +1,11 @@
 import path from 'node:path'
-import { kDir, path_config, path_runtime } from '../utils/cPath'
-import { readJson, verifyJsonFile, writeJson } from '../utils/json'
+import { kDir, killDir, path_config, path_runtime } from '../utils/cPath'
+import { deleteJson, readJson, verifyJsonFile, writeJson } from '../utils/json'
 export default class BrowserConfig {
 	local_path = {
-		config: path.join(path_config, '/onBotConfig.json'),
-		runtime: path.join(path_runtime, '/onBotRuntime'),
-		extensions: path.join(path_runtime, '/onBotExtensions'),
+		config: path.join(path_config, '/onBot/Config.json'),
+		runtime: path.join(path_runtime, '/onBot/Runtime'),
+		extensions: path.join(path_runtime, '/onBot/Extensions'),
 	}
 	headless = false
 	devtools = false
@@ -22,7 +22,7 @@ export default class BrowserConfig {
 		const checkPath = await verifyJsonFile(this.local_path.config)
 		const clone = this.properties()
 		if (checkPath.status === false) {
-			writeJson(this.local_path.config, clone)
+			await writeJson(this.local_path.config, clone)
 		}
 		const readConfig = await readJson(this.local_path.config)
 		Object.assign(this, readConfig)
@@ -31,7 +31,7 @@ export default class BrowserConfig {
 		if (newObject !== null) {
 			Object.assign(this, newObject)
 		}
-		writeJson(this.local_path.config, this.properties())
+		await writeJson(this.local_path.config, this.properties())
 	}
 	properties() {
 		const clone = Object.assign({}, this)
@@ -41,5 +41,10 @@ export default class BrowserConfig {
 			}
 		}
 		return clone
+	}
+	async remove() {
+		await killDir(this.local_path.runtime)
+		await killDir(this.local_path.extensions)
+		await deleteJson(this.local_path.config)
 	}
 }

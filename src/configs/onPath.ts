@@ -1,3 +1,4 @@
+// NOTE : this file has unused
 import xdg from '@folder/xdg'
 
 export default class Path {

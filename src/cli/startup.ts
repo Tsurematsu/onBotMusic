@@ -1,11 +1,17 @@
-// import {deleteJson, readJson, writeJson} from "./utils/json";
 import config from '@/configs/config'
-import puppeteer from 'puppeteer'
+// import puppeteer from 'puppeteer'
 export default async function startup({ console_log, trowError }) {
-	await config.browser.load()
-	console.log()
 	// SECTION :Setup ---------------------------------------------
-	const argumentsBrowser = config.browser.properties()
-	const browser = await puppeteer.launch(argumentsBrowser)
+	await config.loadAll()
+	// const allPatch = config.patchAll()
+	// const argumentsBrowser = config.browser.properties()
+	// const configSystem = config.system.properties()
+	// const configUser = config.user.properties()
+	console.log(config.patchAll())
+
+	// SECTION :Init ---------------------------------------------
+	// const browser = await puppeteer.launch(argumentsBrowser)
+
+	// SECTION :Run ---------------------------------------------
 	return false
 }

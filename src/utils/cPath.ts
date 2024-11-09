@@ -3,6 +3,7 @@ import { promises as fs } from 'node:fs'
 
 const dir = xdg()
 
+const path_app = process.argv[2] || ''
 const path_cache = dir.cache
 const path_state = dir.state
 const path_config = dir.config
@@ -23,9 +24,11 @@ const objectExports = {
 	path_runtime,
 	path_state,
 	path_users,
+	path_app,
 }
 export default objectExports
 export {
+	path_app,
 	path_cache,
 	path_config,
 	path_config_dirs,
@@ -39,4 +42,10 @@ export {
 
 export async function kDir(dirPath: string) {
 	await fs.mkdir(dirPath, { recursive: true })
+}
+
+export async function killDir(dirPath: string) {
+	try {
+		await fs.rmdir(dirPath, { recursive: true })
+	} catch (error) {}
 }

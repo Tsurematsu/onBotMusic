@@ -1,44 +1,42 @@
 import path from 'node:path'
-import { kDir, path_config, path_runtime } from '../utils/cPath'
-import { readJson, verifyJsonFile, writeJson } from '../utils/json'
+import { killDir, path_logs, path_runtime } from '../utils/cPath'
+import { deleteJson, readJson, verifyJsonFile, writeJson } from '../utils/json'
 export default class SystemConfig {
 	local_path = {
-		config: path.join(path_config, '/onBotConfig.json'),
-		runtime: path.join(path_runtime, '/onBotRuntime'),
-		extensions: path.join(path_runtime, '/onBotExtensions'),
+		ApproveUsers: path.join(path_runtime, '/onBot/ApproveUsers.json'),
+		logsUsers: path.join(path_logs, '/onBot/LogsUsers.json'),
 	}
-	headless = false
-	devtools = false
-	defaultViewport = null
-	userDataDir = this.local_path.runtime
-	browserArgs = [
-		'--no-sandbox',
-		`--disable-extensions-except=${this.local_path.extensions}`,
-		`--load-extension=${this.local_path.extensions}`,
-	]
+	approveUsers = []
+	logsUsers = []
 	async load() {
-		await kDir(this.local_path.runtime)
-		const checkPath = await verifyJsonFile(this.local_path.config)
-		const clone = this.properties()
-		if (checkPath.status === false) {
-			writeJson(this.local_path.config, clone)
+		const checkPathApprove = await verifyJsonFile(this.local_path.ApproveUsers)
+		const checkPathLogUsers = await verifyJsonFile(this.local_path.logsUsers)
+		if (checkPathApprove.status === false) {
+			await writeJson(this.local_path.ApproveUsers, this.approveUsers)
 		}
-		const readConfig = await readJson(this.local_path.config)
-		Object.assign(this, readConfig)
+		if (checkPathLogUsers.status === false) {
+			await writeJson(this.local_path.logsUsers, this.logsUsers)
+		}
+		this.approveUsers = await readJson(this.local_path.ApproveUsers)
+		this.logsUsers = await readJson(this.local_path.logsUsers)
 	}
 	async save(newObject = null) {
 		if (newObject !== null) {
 			Object.assign(this, newObject)
 		}
-		writeJson(this.local_path.config, this.properties())
+		await writeJson(this.local_path.ApproveUsers, this.approveUsers)
+		await writeJson(this.local_path.logsUsers, this.logsUsers)
 	}
 	properties() {
-		const clone = Object.assign({}, this)
-		for (const key in clone) {
-			if (typeof clone[key] === 'function' || key.includes('_')) {
-				delete clone[key]
-			}
+		return {
+			approveUsers: this.approveUsers,
+			logsUsers: this.logsUsers,
 		}
-		return clone
+	}
+
+	async remove() {
+		await deleteJson(this.local_path.ApproveUsers)
+		await deleteJson(this.local_path.logsUsers)
+		await killDir(path.basename(this.local_path.ApproveUsers))
 	}
 }
