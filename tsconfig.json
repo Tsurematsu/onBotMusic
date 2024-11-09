@@ -4,7 +4,9 @@
 			"@/*": ["./src/*"],
 			"@config/*": ["./src/config/*"],
 			"@utils/*": ["./src/utils/*"],
-			"@types/*": ["./src/types/*"]
+			"@types/*": ["./src/types/*"],
+			"@const/*": ["./src/const/*"],
+			"@cli/*": ["./src/cli/*"]
 		},
 		"esModuleInterop": true
 	}

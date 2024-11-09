@@ -1,22 +1,25 @@
 {
-	"name": "onbotmusic",
-	"version": "1.0.0",
-	"main": "index.ts",
-	"type": "module",
-	"scripts": {
-		"start": "bun ./src/index.ts",
-		"dev": "bun ./src/test/testIndex.ts",
-		"test": "bun test"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
-	"description": "",
-	"dependencies": {
-		"inquirer": "^12.0.1",
-		"puppeteer": "^23.6.1"
-	},
-	"devDependencies": {
-		"@folder/xdg": "^4.0.1"
-	}
+  "name": "onbotmusic",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "start": "bun ./src/index.ts",
+    "dev": "bun ./src/test/testIndex.ts",
+    "test": "bun test",
+    "cli": "bun ./src/cli.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "@clack/core": "0.3.4",
+    "@clack/prompts": "0.7.0",
+    "inquirer": "12.0.1",
+    "puppeteer": "23.6.1"
+  },
+  "devDependencies": {
+    "@folder/xdg": "4.0.1"
+  }
 }
