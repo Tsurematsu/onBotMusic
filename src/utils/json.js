@@ -59,7 +59,7 @@ export function writeJson(filePath = '', data, errorCallBack) {
 	// const patchFile = path.join(getPath(), filePath);
 	const patchFile = filePath
 	try {
-		const jsonData = JSON.stringify(data, null, 2)
+		const jsonData = JSON.stringify(data)
 		writeFile(patchFile, jsonData, 'utf8')
 		return
 	} catch (error) {

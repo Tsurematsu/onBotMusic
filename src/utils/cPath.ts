@@ -2,6 +2,7 @@ import xdg from '@folder/xdg'
 import { promises as fs } from 'node:fs'
 
 const dir = xdg()
+
 const path_cache = dir.cache
 const path_state = dir.state
 const path_config = dir.config
@@ -11,6 +12,7 @@ const path_data_dirs = dir.data_dirs
 const path_users = dir.data
 const path_runtime = dir.runtime
 const path_logs = dir.logs
+
 const objectExports = {
 	path_cache,
 	path_config,
