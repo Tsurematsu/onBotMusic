@@ -41,7 +41,7 @@ export function deleteJson(pathFile) {
 			if (err) {
 				reject(err)
 			} else {
-				resolve()
+				resolve('')
 			}
 		})
 	})

@@ -8,7 +8,11 @@ export default class UserConfig {
 	botName = ''
 	botTag = ''
 	scrollSelector = ''
-	commands = {}
+	commands = {
+		play: '/modules/play.js',
+		stop: '/modules/stop.js',
+		start: '/modules/start.js',
+	}
 	local_path = {
 		configUser: path.join(path_config, '/onBot/ConfigUsers.json'),
 		modules: path.join(path_app, '/modules'),

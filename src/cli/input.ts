@@ -1,4 +1,10 @@
-import { select, text, TextOptions, cancel, isCancel } from '@clack/prompts'
+import {
+	type TextOptions,
+	cancel,
+	isCancel,
+	select,
+	text,
+} from '@clack/prompts'
 
 interface SelectOption {
 	value: string

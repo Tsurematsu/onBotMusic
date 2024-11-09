@@ -1,9 +1,9 @@
 import xdg from '@folder/xdg'
 import { promises as fs } from 'node:fs'
-
+import path from 'node:path'
 const dir = xdg()
 
-const path_app = process.argv[2] || ''
+const path_app = path.dirname(path.dirname(__dirname))
 const path_cache = dir.cache
 const path_state = dir.state
 const path_config = dir.config

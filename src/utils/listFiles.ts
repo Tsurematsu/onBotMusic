@@ -9,8 +9,7 @@ import path from 'node:path'
  */
 export default async function listFiles(pathFile = '') {
 	try {
-		const modulePath = getPath()
-		const directoryPath = path.join(modulePath, pathFile)
+		const directoryPath = path.join(pathFile, pathFile)
 		const files = await readdir(directoryPath)
 		return files
 	} catch (error) {
