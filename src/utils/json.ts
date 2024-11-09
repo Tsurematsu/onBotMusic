@@ -11,7 +11,7 @@ import path from 'node:path'
  */
 
 // biome-ignore lint/style/useDefaultParameterLast: <explanation>
-export async function readJson(filePath = '', errorCallBack) {
+export async function readJson(filePath = '', errorCallBack = (e) => {}) {
 	// const patchFile = path.join(getPath(), filePath);
 	const patchFile = filePath
 	try {
@@ -55,7 +55,7 @@ export function deleteJson(pathFile) {
  * @param {function(Error):void} [errorCallBack] - Optional callback function to handle errors.
  */
 // biome-ignore lint/style/useDefaultParameterLast: <explanation>
-export function writeJson(filePath = '', data, errorCallBack) {
+export function writeJson(filePath = '', data, errorCallBack = (e) => {}) {
 	// const patchFile = path.join(getPath(), filePath);
 	const patchFile = filePath
 	try {

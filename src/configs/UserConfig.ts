@@ -1,3 +1,4 @@
+// NOTE: this file is deprecated and will be removed in the future, reemplace by ChannelConfig.ts
 import path from 'node:path'
 import { killDir, path_app, path_config } from '../utils/cPath'
 import { deleteJson, readJson, verifyJsonFile, writeJson } from '../utils/json'
