@@ -20,19 +20,14 @@ export default class Login {
 				const emailButton = new WaitElement(
 					() => {
 						count++
+						console.log(tag, 'emailButton.exist ->', count)
 						return count > 10
-						// const element = document.querySelector('input[type="email"]')
-						// console.log(tag, 'emailButton ->', element)
-						// return element ?? false
 					},
 					5000,
 					tag,
 				)
-
 				await emailButton.exist(async (element) => {})
 			}
-
-			// emailButton.cancel()
 		}, tag)
 
 		// await new Promise((r) => setTimeout(r, 1000))
