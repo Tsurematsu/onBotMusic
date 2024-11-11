@@ -35,6 +35,5 @@ export default async function startup({ console_log, trowError }) {
 	await discord.server(discordPage).select(nameServer)
 	console.log('server', discordPage.url())
 	await discord.channel(discordPage).select(nameChannel)
-	console.log('channel', discordPage.url())
 	return false
 }
