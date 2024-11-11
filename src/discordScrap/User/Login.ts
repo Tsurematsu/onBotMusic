@@ -25,6 +25,10 @@ class Login {
 
 				await this.page.waitForSelector(element.button)
 				await this.page.click(element.button)
+
+				await this.page.waitForNavigation()
+				// await this.page.keyboard.press('Escape')
+				await this.page.keyboard.press('Enter')
 			} catch (error) {}
 		}
 		await valueLogIn(this.page, 1000)
