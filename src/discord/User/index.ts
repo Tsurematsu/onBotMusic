@@ -5,7 +5,7 @@ class User {
 	login
 	constructor(page) {
 		this.page = page
-		this.login = new Login(page)
+		this.login = new Login(page).main
 	}
 }
 export default User

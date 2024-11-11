@@ -1,15 +1,14 @@
+import Select from './Select'
 import listServer from './listServer'
 class Server {
 	listServers = []
-	async select(page, nameSever) {
-		this.listServers = await listServer(page)
-		const { data_list_item_id } = this.listServers.find((server) =>
-			server.name.includes(nameSever),
-		)
-		await page.click(`div[data-list-item-id="${data_list_item_id}"]`)
+	page
+	constructor(page) {
+		this.page = page
 	}
+	select = (page) => new Select(this.page).main
 	async list(page) {
 		return await listServer(page)
 	}
 }
-export default new Server()
+export default Server

@@ -32,7 +32,7 @@ export default async function startup({ console_log, trowError }) {
 	// await discord.login(discordPage, credencial)
 	await discord.user(discordPage).login(credencial)
 	console.log('login', discordPage.url())
-	await discord.server.select(discordPage, nameServer)
+	await discord.server(discordPage).select(nameServer)
 	console.log('server', discordPage.url())
 	await discord.channel.select(discordPage, nameChannel)
 	console.log('channel', discordPage.url())
