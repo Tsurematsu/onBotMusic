@@ -16,6 +16,7 @@
   "dependencies": {
     "@clack/core": "0.3.4",
     "@clack/prompts": "0.7.0",
+    "dotenv": "^16.4.5",
     "inquirer": "12.0.1",
     "puppeteer": "23.6.1"
   },

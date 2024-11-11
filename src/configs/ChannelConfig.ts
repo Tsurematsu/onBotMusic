@@ -18,6 +18,7 @@ class UserConfig {
 		start: '/modules/start.js',
 	}
 }
+
 export default class ChannelConfig {
 	localConfigs = {
 		default: new UserConfig(),

@@ -1,6 +1,1 @@
-export default class entryChannel {
-	private page
-	constructor(page) {
-		this.page = page
-	}
-}
+export default class entryChannel {}
