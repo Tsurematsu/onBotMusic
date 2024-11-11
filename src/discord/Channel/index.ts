@@ -1,15 +1,15 @@
+import Select from './Select'
 import listChannel from './listChannels'
 class Channel {
 	listChannels = []
-	async select(page, nameChannel) {
-		this.listChannels = await listChannel(page)
-		const { data_list_item_id } = this.listChannels.find((server) =>
-			server.name.includes(nameChannel),
-		)
-		await page.click(`a[data-list-item-id="${data_list_item_id}"]`)
+	page
+	select
+	constructor(page) {
+		this.page = page
+		this.select = new Select(page).main
 	}
-	async getList(page) {
-		return await listChannel(page)
+	async getList() {
+		return await listChannel(this.page)
 	}
 }
-export default new Channel()
+export default Channel

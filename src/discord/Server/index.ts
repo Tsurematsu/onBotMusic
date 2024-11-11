@@ -3,10 +3,11 @@ import listServer from './listServer'
 class Server {
 	listServers = []
 	page
+	select
 	constructor(page) {
 		this.page = page
+		this.select = new Select(page).main
 	}
-	select = (page) => new Select(this.page).main
 	async list(page) {
 		return await listServer(page)
 	}

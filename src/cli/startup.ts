@@ -19,7 +19,7 @@ export default async function startup({ console_log, trowError }) {
 	const browser = await puppeteer.launch({
 		headless: false,
 		devtools: false,
-		// userDataDir: argumentsBrowser.userDataDir,
+		userDataDir: argumentsBrowser.userDataDir,
 		args: [
 			'--use-fake-ui-for-media-stream', // Simula el acceso a medios como el micrófono y cámara
 		],
@@ -34,7 +34,7 @@ export default async function startup({ console_log, trowError }) {
 	console.log('login', discordPage.url())
 	await discord.server(discordPage).select(nameServer)
 	console.log('server', discordPage.url())
-	await discord.channel.select(discordPage, nameChannel)
+	await discord.channel(discordPage).select(nameChannel)
 	console.log('channel', discordPage.url())
 	return false
 }

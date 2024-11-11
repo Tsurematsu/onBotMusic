@@ -44,13 +44,14 @@ export default async function listChannels(page, ariaLabel = 'Canales') {
 			async function main() {
 				// @ts-ignore
 				const limit = elementScroll.scrollHeight
-				const summary = limit / 10
+				const summary = limit / 20
 				for (let scrollI = 0; scrollI < limit; scrollI += summary) {
 					// @ts-ignore
 					elementScroll.scrollTop = scrollI
 					await new Promise((resolve) => setTimeout(resolve, 100))
 					channels = { ...getChannels(), ...channels }
 				}
+				await new Promise((resolve) => setTimeout(resolve, 500))
 				return Object.keys(channels).map((key) => ({
 					name: key,
 					data_list_item_id: channels[key],
