@@ -14,16 +14,27 @@ export default async function startup({ console_log, trowError }) {
 	const nameServer = 'Programadores y Estudiantes | Comunidad de Programación'
 	const nameChannel = "Tsure's Channel"
 	argumentsBrowser.headless = false
+
 	// SECTION :Init ---------------------------------------------
-	const browser = await puppeteer.launch(argumentsBrowser)
+	const browser = await puppeteer.launch({
+		headless: false,
+		devtools: false,
+		// userDataDir: argumentsBrowser.userDataDir,
+		args: [
+			'--use-fake-ui-for-media-stream', // Simula el acceso a medios como el micrófono y cámara
+		],
+	})
 
 	const musicPage = await browser.newPage()
 	const discordPage = await browser.newPage()
 
 	// SECTION :Run ---------------------------------------------
-	await discord.login(discordPage, credencial)
+	// await discord.login(discordPage, credencial)
+	await discord.user(discordPage).login(credencial)
 	console.log('login', discordPage.url())
 	await discord.server.select(discordPage, nameServer)
+	console.log('server', discordPage.url())
 	await discord.channel.select(discordPage, nameChannel)
+	console.log('channel', discordPage.url())
 	return false
 }

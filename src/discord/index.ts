@@ -1,9 +1,9 @@
 import Channel from './Channel'
-import Login from './Login'
 import Server from './Server'
+import User from './User'
 const discord = {
-	login: Login.main,
 	server: Server,
 	channel: Channel,
+	user: (page) => new User(page),
 }
 export default discord
