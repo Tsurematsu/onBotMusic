@@ -1,4 +1,4 @@
-import listChannel from './listChannels'
+import listChannel from './modules/listChannels'
 class Select {
 	listChannels = []
 	page

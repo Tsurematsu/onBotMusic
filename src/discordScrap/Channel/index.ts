@@ -1,5 +1,5 @@
 import Select from './Select'
-import listChannel from './listChannels'
+import listChannel from './modules/listChannels'
 class Channel {
 	listChannels = []
 	page

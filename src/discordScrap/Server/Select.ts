@@ -1,4 +1,4 @@
-import listServer from './listServer'
+import listServer from './modules/listServer'
 class Select {
 	page
 	listServers = []
