@@ -1,3 +1,4 @@
+// DEPRECATED : NOT USED ANYMORE, because traslade the code to the main file Media/index.ts
 import type { Page } from 'puppeteer'
 import selectOption from '../modules/selectOption'
 class Media {
