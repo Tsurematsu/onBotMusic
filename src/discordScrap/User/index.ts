@@ -2,7 +2,7 @@ import type { Page } from 'puppeteer'
 import Login from './Login'
 import Config from './config'
 class User {
-	page: Page
+	private page: Page
 	login: Login['main']
 	config: Config
 	constructor(page) {

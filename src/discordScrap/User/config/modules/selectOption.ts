@@ -1,7 +1,7 @@
-export default async function selectOption(option: string) {
+export default async function selectOption(page, option: string) {
 	try {
-		await this.page.waitForSelector(`div[aria-label="${option}"]`)
-		await this.page.click(`div[aria-label="${option}"]`)
+		await page.waitForSelector(`div[aria-label="${option}"]`)
+		await page.click(`div[aria-label="${option}"]`)
 		return true
 	} catch (error) {
 		return false

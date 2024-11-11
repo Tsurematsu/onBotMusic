@@ -4,7 +4,7 @@ import input from './input'
 import closeConfig from './modules/closeConfig'
 import openConfig from './modules/openConfig'
 class Config {
-	page: Page
+	private page: Page
 	input: input['main']
 	voiceAndVideo: VoiceAndVideo
 	constructor(page) {

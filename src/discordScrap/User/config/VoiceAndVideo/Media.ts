@@ -1,10 +1,12 @@
 import type { Page } from 'puppeteer'
-
+import selectOption from '../modules/selectOption'
 class Media {
-	page: Page
+	private page: Page
 	constructor(page: Page) {
 		this.page = page
 	}
-	async input() {}
+	async input(select) {
+		await selectOption(this.page, 'Voz y vídeo')
+	}
 }
 export default Media
