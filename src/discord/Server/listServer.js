@@ -1,20 +1,29 @@
 export default async function listServer(page) {
 	try {
-		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-		const { WaitElement, window } = Object as any
+		// @ts-ignore
+		const { window } = Object
 		await page.waitForSelector('div[aria-label="Servidores"]')
 		return await page.evaluate(() => {
 			const divServer = document.querySelectorAll(
 				'div[aria-label="Servidores"]',
 			)[0]
 			const elements = divServer.querySelectorAll('div')
-			const list = new Map()
+			const list = []
 			for (const element of Array.from(elements)) {
 				const data_list_item_id = element.getAttribute('data-list-item-id')
 				if (data_list_item_id) {
-					const ariaLabel = element.getAttribute('aria-label')
+					// @ts-ignore
+					const ariaLabel = element.getAttribute('aria-label').trim()
 					if (ariaLabel === null) break
-					list.set(ariaLabel, element)
+					const prefijo = ariaLabel.split(',')
+					const idKey =
+						prefijo.length > 1
+							? ariaLabel.slice(prefijo[0].length + 1).trim()
+							: ariaLabel
+					list.push({
+						name: idKey.replaceAll('"', '').trim(),
+						data_list_item_id,
+					})
 				}
 			}
 			window.listChannels = list
