@@ -1,10 +1,4 @@
-import {
-	type TextOptions,
-	cancel,
-	isCancel,
-	select,
-	text,
-} from '@clack/prompts'
+import * as p from '@clack/prompts'
 
 interface SelectOption {
 	value: string
@@ -18,13 +12,13 @@ interface SelectOptions {
 }
 
 export async function select_answer(opts: SelectOptions) {
-	const answer = await select(opts)
+	const answer = await p.select(opts)
 
 	return answer
 }
 
-export async function text_answer(opts: TextOptions) {
-	const string_text = await text({
+export async function text_answer(opts: p.TextOptions) {
+	const string_text = await p.text({
 		message: opts.message,
 		placeholder: opts.placeholder,
 		initialValue: opts.initialValue,
@@ -35,8 +29,8 @@ export async function text_answer(opts: TextOptions) {
 		},
 	})
 
-	if (isCancel(string_text)) {
-		cancel('Operation canceled')
+	if (p.isCancel(string_text)) {
+		p.cancel('Operation canceled')
 		process.exit(0)
 	}
 
