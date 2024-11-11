@@ -23,18 +23,18 @@ export default class ChannelConfig {
 	localConfigs = {
 		default: new UserConfig(),
 	}
-	local_path = {
+	path = {
 		configUser: path.join(path_config, '/onBot/ConfigUsers.json'),
 	}
 	async load() {
-		const checkPathConfigUser = await verifyJsonFile(this.local_path.configUser)
+		const checkPathConfigUser = await verifyJsonFile(this.path.configUser)
 		if (checkPathConfigUser.status === false) {
-			await writeJson(this.local_path.configUser, this.localConfigs)
+			await writeJson(this.path.configUser, this.localConfigs)
 		}
-		this.localConfigs = await readJson(this.local_path.configUser)
+		this.localConfigs = await readJson(this.path.configUser)
 	}
 	async save() {
-		await writeJson(this.local_path.configUser, this.localConfigs)
+		await writeJson(this.path.configUser, this.localConfigs)
 	}
 
 	properties(name = 'default') {
@@ -47,7 +47,7 @@ export default class ChannelConfig {
 		await this.save()
 	}
 	async remove() {
-		await deleteJson(this.local_path.configUser)
-		await killDir(path.basename(this.local_path.configUser))
+		await deleteJson(this.path.configUser)
+		await killDir(path.basename(this.path.configUser))
 	}
 }

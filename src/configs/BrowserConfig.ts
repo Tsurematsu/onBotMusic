@@ -1,11 +1,12 @@
+import { NAME_CLI } from '@/const/cli'
 import path from 'node:path'
 import { kDir, killDir, path_config, path_runtime } from '../utils/cPath'
 import { deleteJson, readJson, verifyJsonFile, writeJson } from '../utils/json'
 export default class BrowserConfig {
 	local_path = {
-		config: path.join(path_config, '/onBot/Config.json'),
-		runtime: path.join(path_runtime, '/onBot/Runtime'),
-		extensions: path.join(path_runtime, '/onBot/Extensions'),
+		config: path.join(path_config, NAME_CLI, 'browser.config.json'),
+		runtime: path.join(path_runtime, NAME_CLI, 'Runtime'),
+		extensions: path.join(path_runtime, NAME_CLI, 'Extensions'),
 	}
 	headless = false
 	devtools = false
