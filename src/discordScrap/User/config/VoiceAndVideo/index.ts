@@ -1,5 +1,5 @@
 import type { Page } from 'puppeteer'
-import input from './Media/input'
+import input from './Input'
 
 class VoiceAndVideo {
 	private page: Page
