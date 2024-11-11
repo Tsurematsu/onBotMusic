@@ -11,9 +11,8 @@ export default async function startup({ console_log, trowError }) {
 	const argumentsBrowser = config.browser.properties()
 	const configSystem = config.system.properties()
 	const configChannel = config.channel.properties()
+	const nameServer = 'Programadores y Estudiantes | Comunidad de Programación'
 	argumentsBrowser.headless = false
-	// biome-ignore lint/performance/noDelete: <explanation>
-	delete argumentsBrowser.userDataDir
 	// SECTION :Init ---------------------------------------------
 	const browser = await puppeteer.launch(argumentsBrowser)
 
@@ -22,6 +21,8 @@ export default async function startup({ console_log, trowError }) {
 
 	// SECTION :Run ---------------------------------------------
 	await discord.login(discordPage, credencial)
+	console.log('login', discordPage.url())
+	await discord.server.select(discordPage, nameServer)
 
 	return false
 }

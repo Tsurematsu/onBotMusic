@@ -1,6 +1,7 @@
 import Login from './Login'
-const login = new Login()
+import Server from './Server'
 const discord = {
-	login: login.main,
+	login: Login.main,
+	server: Server,
 }
 export default discord
