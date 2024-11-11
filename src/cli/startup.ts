@@ -1,7 +1,7 @@
 import config from '@/configs/config'
 import dotenv from 'dotenv'
 import puppeteer from 'puppeteer'
-import discord from '../discordScrap'
+import DiscordScrap from '../discordScrap'
 dotenv.config()
 export default async function startup({ console_log, trowError }) {
 	// SECTION :Setup ---------------------------------------------
@@ -29,16 +29,17 @@ export default async function startup({ console_log, trowError }) {
 	const discordPage = await browser.newPage()
 
 	// SECTION :Run ---------------------------------------------
-	await discord.user(discordPage).login(credencial)
+	const discord = new DiscordScrap(discordPage)
+	await discord.user.login(credencial)
 	console.log('login', discordPage.url())
 
 	// SECTION :Config user ---------------------------------------------
-	await discord.user(discordPage).config.open()
-	await discord.user(discordPage).config.input('main')
-
+	await discord.user.config.open()
+	await discord.user.config.input('main')
+	await discord.user.config.close()
 	// SECTION :Select ---------------------------------------------
-	// await discord.server(discordPage).select(nameServer)
+	// await discord.server.select(nameServer)
 	// console.log('server', discordPage.url())
-	// await discord.channel(discordPage).select(nameChannel)
+	// await discord.channel.select(nameChannel)
 	return false
 }
