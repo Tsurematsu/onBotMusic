@@ -1,5 +1,4 @@
 import config from '@/configs/config'
-import system from '@/const/system'
 import scraper from '@/scraper'
 import writeFunction from '@/scraper/methods/writeFunction'
 import puppeteer from 'puppeteer'
@@ -14,16 +13,17 @@ export default async function startup({ console_log, trowError }) {
 	const configChannel = config.channel.properties()
 
 	// SECTION :Init ---------------------------------------------
-	system.browser = await puppeteer.launch(argumentsBrowser)
-	system.page.music = await system.browser.newPage()
-	handleConsole(system.page.music, 'music')
+	const browser = await puppeteer.launch(argumentsBrowser)
+	const music = await browser.newPage()
+	handleConsole(music, 'music')
 	await new Promise((resolve) => setTimeout(resolve, 1000))
-	system.page.discord = await system.browser.newPage()
-	handleConsole(system.page.discord, 'discord')
-	writeFunction(system.page.discord)
-	await scraper.Login.entry()
-	// await system.page.discord.goto(configChannel.channelURL)
+	const discord = await browser.newPage()
+	handleConsole(discord, 'discord')
+	writeFunction(discord)
 
 	// SECTION :Run ---------------------------------------------
+	await scraper.Login.entry(discord)
+	// await system.page.discord.goto(configChannel.channelURL)
+
 	return false
 }

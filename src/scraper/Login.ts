@@ -1,18 +1,18 @@
-import system from '@/const/system'
 import { tag } from '@/utils/log'
 import dotenv from 'dotenv'
 import path from 'node:path'
 dotenv.config()
 export default class Login {
-	async entry() {
+	async entry(page) {
 		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 		const { WaitElement, window } = Object as any
 		const email = process.env.email || ''
 		const password = process.env.password || ''
-		await system.page.discord.addScriptTag({
+		await page.addScriptTag({
 			path: path.resolve(__dirname, './modulesBrowser/waitElement.js'),
 		})
-		await system.page.discord.evaluate(async (tag) => {
+
+		await page.evaluate(async (tag) => {
 			login()
 			async function login() {
 				console.log(tag, 'Login init')
@@ -23,12 +23,16 @@ export default class Login {
 						console.log(tag, 'emailButton.exist ->', count)
 						return count > 10
 					},
-					5000,
+					1000,
 					tag,
 				)
-				await emailButton.exist(async (element) => {})
+				await emailButton.exist(async (element) => {
+					console.log('okay elemento encontrado')
+				})
 			}
 		}, tag)
+
+		// await page.waitForSelector('#email')
 
 		// await new Promise((r) => setTimeout(r, 1000))
 		// console.log(tag, 'emailButton.exist ->', element)
