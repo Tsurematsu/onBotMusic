@@ -29,11 +29,14 @@ export default async function startup({ console_log, trowError }) {
 	const discordPage = await browser.newPage()
 
 	// SECTION :Run ---------------------------------------------
-	// await discord.login(discordPage, credencial)
 	await discord.user(discordPage).login(credencial)
 	console.log('login', discordPage.url())
-	await discord.server(discordPage).select(nameServer)
-	console.log('server', discordPage.url())
-	await discord.channel(discordPage).select(nameChannel)
+
+	// SECTION :Config user ---------------------------------------------
+
+	// SECTION :Select ---------------------------------------------
+	// await discord.server(discordPage).select(nameServer)
+	// console.log('server', discordPage.url())
+	// await discord.channel(discordPage).select(nameChannel)
 	return false
 }
