@@ -1,12 +1,12 @@
 import type { Page } from 'puppeteer'
-import Media from './Media'
+import input from './Media/input'
 
 class VoiceAndVideo {
 	private page: Page
-	media: Media
+	input: input
 	constructor(page) {
 		this.page = page
-		this.media = new Media(page)
+		this.input = new input(page)
 	}
 }
 export default VoiceAndVideo

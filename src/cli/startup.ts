@@ -34,8 +34,9 @@ export default async function startup({ console_log, trowError }) {
 	console.log('login', discordPage.url())
 
 	// SECTION :Config user ---------------------------------------------
-	await discord.user.config.open()
-	await discord.user.config.voiceAndVideo.media.input('test')
+	const confUser = discord.user.config
+	await confUser.open()
+	await confUser.voiceAndVideo.input.getDevices()
 	// await discord.user.config.close()
 	// SECTION :Select ---------------------------------------------
 	// await discord.server.select(nameServer)
