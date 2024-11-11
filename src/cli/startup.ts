@@ -33,6 +33,7 @@ export default async function startup({ console_log, trowError }) {
 	console.log('login', discordPage.url())
 
 	// SECTION :Config user ---------------------------------------------
+	await discord.user(discordPage).config.input('main')
 
 	// SECTION :Select ---------------------------------------------
 	// await discord.server(discordPage).select(nameServer)
