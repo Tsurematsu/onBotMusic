@@ -12,6 +12,7 @@ export default async function startup({ console_log, trowError }) {
 	const configSystem = config.system.properties()
 	const configChannel = config.channel.properties()
 	const nameServer = 'Programadores y Estudiantes | Comunidad de Programación'
+	const nameChannel = "Tsure's Channel"
 	argumentsBrowser.headless = false
 	// SECTION :Init ---------------------------------------------
 	const browser = await puppeteer.launch(argumentsBrowser)
@@ -23,6 +24,6 @@ export default async function startup({ console_log, trowError }) {
 	await discord.login(discordPage, credencial)
 	console.log('login', discordPage.url())
 	await discord.server.select(discordPage, nameServer)
-
+	await discord.channel.select(discordPage, nameChannel)
 	return false
 }
