@@ -13,7 +13,6 @@ class input {
 		openConfig(this.page)
 		await new Promise((resolve) => setTimeout(resolve, 1000))
 		closeConfig(this.page)
-		// aria-label="Cerrar"
 	}
 }
 export default input

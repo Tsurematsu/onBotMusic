@@ -13,7 +13,7 @@ class Login {
 		}
 		await this.page.goto('https://discord.com/login')
 		await this.page.bringToFront()
-		if ((await valueLogIn(this.page, 3000)) === false) {
+		if ((await valueLogIn(this.page, 2000)) === false) {
 			try {
 				await this.page.waitForSelector(element.email)
 				await this.page.click(element.email)
