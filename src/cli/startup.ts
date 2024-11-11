@@ -1,7 +1,7 @@
 import config from '@/configs/config'
 import dotenv from 'dotenv'
 import puppeteer from 'puppeteer'
-import discord from '../discord'
+import discord from '../discordScrap'
 dotenv.config()
 export default async function startup({ console_log, trowError }) {
 	// SECTION :Setup ---------------------------------------------
