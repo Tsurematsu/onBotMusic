@@ -11,8 +11,10 @@ class Config {
 	}
 	async open(callback = null) {
 		if (callback !== null) {
-			await callback(openConfig(this.page))
-			await this.close()
+			await openConfig(this.page)
+			await callback()
+			await closeConfig(this.page)
+			return
 		}
 		return await openConfig(this.page)
 	}

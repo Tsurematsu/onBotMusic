@@ -37,12 +37,14 @@ export default async function startup({ console_log, trowError }) {
 	// SECTION :Config user ---------------------------------------------
 	const confUser = discord.user.config
 	await confUser.open(async () => {
+		console.log('open config')
 		await confUser.voiceAndVideo.into()
 		const selected0 = await confUser.voiceAndVideo.input.getSelected()
 		console.log('selected', selected0)
+		await confUser.voiceAndVideo.input.setDevice(inputDevice)
+		const selected1 = await confUser.voiceAndVideo.input.getSelected()
+		console.log('selected', selected1)
 	})
-	// const listDevices = await confUser.voiceAndVideo.input.getDevices()
-	// console.log('listDevices', listDevices.default)
 
 	// await confUser.close()
 	// SECTION :Select ---------------------------------------------
