@@ -2,8 +2,8 @@ import type { Page } from 'puppeteer'
 import selectOption from '../../modules/selectOption'
 import LabelChecked from '../modules/LabelChecked'
 import LabelProperty from '../modules/LabelProperty'
-export default class echoCancellation {
-	private tag = 'Cancelación de eco'
+export default class HardwareAcceleration {
+	private tag = 'Aceleración por hardware'
 	page: Page
 	constructor(page: Page) {
 		this.page = page
