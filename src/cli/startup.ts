@@ -42,6 +42,7 @@ export default async function startup({ console_log, trowError }) {
 	// SECTION :Config user ---------------------------------------------
 	const confUser = discord.user.config
 	// await confUser.open(async () => {
+	// await confUser.voiceAndVideo.inputVolume.set(50)
 	// await confUser.voiceAndVideo.outputVolume.set(0)
 	// 	await confUser.voiceAndVideo.input.setDevice(inputDevice)
 	// 	await confUser.voiceAndVideo.sensibility.set(0)
