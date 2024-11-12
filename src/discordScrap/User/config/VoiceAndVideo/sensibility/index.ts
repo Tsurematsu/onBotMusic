@@ -10,9 +10,11 @@ export default class Sensibility {
 	async set(value) {
 		await selectOption(this.page, 'Voz y vídeo')
 		await this.page.waitForSelector('div[role="tabpanel"]')
+		await scrollToElement(this.page)
+		await new Promise((resolve) => setTimeout(resolve, 500))
 		const sliderClass = await getProperty(this.page)
 		const classA = `.${sliderClass.replace(' ', '.')}`
-		await scrollToElement(this.page, classA)
+		// --------------------------------------------------------------
 		const scrolling = async () => {
 			if (await this.page.$(classA)) {
 				const slider = await this.page.$(classA)
@@ -24,13 +26,14 @@ export default class Sensibility {
 				const valueScale = porcentaje + (value <= 0 ? 1 : 0)
 				const maxValueScale =
 					valueScale >= boundingBox.width ? boundingBox.width - 1 : valueScale
-				console.log('maxValueScale:', maxValueScale)
 				const xPos = boundingBox.x + maxValueScale
 				const yPos = boundingBox.y + boundingBox.height / 2 + 1
 				await this.page.mouse.click(xPos, yPos)
+				return true
 			}
+			return false
 		}
-		await scrolling()
+		return await scrolling()
 		// console.log('No se ha podido cambiar la sensibilidad de voz')
 		// return false
 	}
