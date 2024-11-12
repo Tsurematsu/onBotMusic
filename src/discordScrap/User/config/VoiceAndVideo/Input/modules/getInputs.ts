@@ -4,6 +4,12 @@ export default async function getInputs(page) {
 	const response = await page.evaluate(async () => {
 		async function main() {
 			try {
+				const elementScroll = document.querySelector(
+					'div[class*="contentRegionScroller_"]',
+				)
+				if (elementScroll) elementScroll.scrollTop = 0
+			} catch {}
+			try {
 				await new Promise((resolve) => setTimeout(resolve, 200))
 				const elements = document.querySelectorAll('div')
 				// biome-ignore lint/suspicious/noImplicitAnyLet: <explanation>

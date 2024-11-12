@@ -4,6 +4,12 @@ export default async function openInput(page) {
 	const response = await page.evaluate(async () => {
 		async function main() {
 			try {
+				const elementScroll = document.querySelector(
+					'div[class*="contentRegionScroller_"]',
+				)
+				if (elementScroll) elementScroll.scrollTop = 0
+			} catch {}
+			try {
 				await new Promise((resolve) => setTimeout(resolve, 200))
 				const elementos = document.querySelector('h3')
 				const elementoDiv = elementos.parentNode.querySelectorAll('div')[0]

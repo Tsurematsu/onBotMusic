@@ -21,7 +21,7 @@ export default async function startup({ console_log, trowError }) {
 	const browser = await puppeteer.launch({
 		headless: false,
 		devtools: false,
-		userDataDir: argumentsBrowser.userDataDir,
+		// userDataDir: argumentsBrowser.userDataDir,
 		args: ['--no-sandbox', '--disable-setuid-sandbox'],
 		ignoreDefaultArgs: ['--enable-automation'],
 	})
@@ -41,22 +41,22 @@ export default async function startup({ console_log, trowError }) {
 
 	// SECTION :Config user ---------------------------------------------
 	const confUser = discord.user.config
-	// await confUser.open(async () => {
-	// await confUser.voiceAndVideo.inputVolume.set(50)
-	// await confUser.voiceAndVideo.outputVolume.set(0)
-	// 	await confUser.voiceAndVideo.input.setDevice(inputDevice)
-	// 	await confUser.voiceAndVideo.sensibility.set(0)
-	// 	await confUser.voiceAndVideo.alwaysVideo.disable()
-	// 	await confUser.voiceAndVideo.echoCancellation.disable()
-	// 	await confUser.voiceAndVideo.hardwareAcceleration.disable()
-	// 	await confUser.voiceAndVideo.automaticGain.disable()
-	// 	await confUser.voiceAndVideo.streamPreviews.disable()
-	// 	await confUser.voiceAndVideo.noiseSuppression.nothing()
-	// 	await new Promise((resolve) => setTimeout(resolve, 1000))
-	// })
-	// console.log('config', discordPage.url())
+	await confUser.open(async () => {
+		await confUser.voiceAndVideo.inputVolume.set(50)
+		await confUser.voiceAndVideo.outputVolume.set(0)
+		await confUser.voiceAndVideo.input.setDevice(inputDevice)
+		await confUser.voiceAndVideo.sensibility.set(0)
+		await confUser.voiceAndVideo.alwaysVideo.disable()
+		await confUser.voiceAndVideo.echoCancellation.disable()
+		await confUser.voiceAndVideo.hardwareAcceleration.disable()
+		await confUser.voiceAndVideo.automaticGain.disable()
+		await confUser.voiceAndVideo.streamPreviews.disable()
+		await confUser.voiceAndVideo.noiseSuppression.nothing()
+		await new Promise((resolve) => setTimeout(resolve, 1000))
+	})
+	console.log('config', discordPage.url())
 
-	await confUser.open()
+	// await confUser.open()
 
 	// SECTION :Select ---------------------------------------------
 	// await discord.server.select(nameServer)
