@@ -6,6 +6,7 @@ import EchoCancellation from './EchoCancellation'
 import HardwareAcceleration from './HardwareAcceleration'
 import input from './Input'
 import NoiseSuppression from './NoiseSuppression'
+import OutputVolume from './OutputVolume'
 import Sensibility from './Sensibility'
 import streamPreviews from './streamPreviews'
 class VoiceAndVideo {
@@ -18,6 +19,7 @@ class VoiceAndVideo {
 	automaticGain: AutomaticGain
 	streamPreviews: streamPreviews
 	noiseSuppression: NoiseSuppression
+	outputVolume: OutputVolume
 	into = async () => {
 		await selectOption(this.page, 'Voz y vídeo')
 	}
@@ -31,6 +33,7 @@ class VoiceAndVideo {
 		this.automaticGain = new AutomaticGain(page)
 		this.streamPreviews = new streamPreviews(page)
 		this.noiseSuppression = new NoiseSuppression(page)
+		this.outputVolume = new OutputVolume(page)
 	}
 }
 export default VoiceAndVideo

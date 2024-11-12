@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"lib": ["es2021"],
+		"lib": ["es2021", "esnext", "dom"],
 		"paths": {
 			"@/*": ["./src/*"],
 			"@config/*": ["./src/config/*"],

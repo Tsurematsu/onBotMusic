@@ -27,7 +27,7 @@ class Login {
 				await this.page.click(element.button)
 			} catch (error) {}
 		}
-		await valueLogIn(this.page, 1000)
+		await valueLogIn(this.page, 2000)
 	}
 }
 export default Login

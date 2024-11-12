@@ -6,12 +6,13 @@ dotenv.config()
 
 export default async function startup({ console_log, trowError }) {
 	// SECTION :Setup ---------------------------------------------
-	const credencial = process.env
 	await config.all.load()
 	const allPatch = config.all.patch()
-	const argumentsBrowser = config.browser.properties()
 	const configSystem = config.system.properties()
 	const configChannel = config.channel.properties()
+	const argumentsBrowser = config.browser.properties()
+	// SECTION :Data ---------------------------------------------
+	const credencial = process.env
 	const nameServer = 'Programadores y Estudiantes | Comunidad de Programación'
 	const nameChannel = "Tsure's Channel"
 	const inputDevice = 'VB-Audio Virtual Cable'
@@ -33,29 +34,35 @@ export default async function startup({ console_log, trowError }) {
 	// SECTION :Run ---------------------------------------------
 	const discord = new DiscordScrap(discordPage)
 	await discord.user.login(credencial)
+	await discordPage.waitForSelector(
+		'nav[aria-label="Barra lateral de servidores"]',
+	)
 	console.log('login', discordPage.url())
 
 	// SECTION :Config user ---------------------------------------------
 	const confUser = discord.user.config
-	await confUser.open()
+	// await confUser.open(async () => {
+	// 	await confUser.voiceAndVideo.input.setDevice(inputDevice)
+	// 	await confUser.voiceAndVideo.sensibility.set(0)
+	// 	await confUser.voiceAndVideo.alwaysVideo.disable()
+	// 	await confUser.voiceAndVideo.echoCancellation.disable()
+	// 	await confUser.voiceAndVideo.hardwareAcceleration.disable()
+	// 	await confUser.voiceAndVideo.automaticGain.disable()
+	// 	await confUser.voiceAndVideo.streamPreviews.disable()
+	// 	await confUser.voiceAndVideo.noiseSuppression.nothing()
+	// 	await new Promise((resolve) => setTimeout(resolve, 1000))
+	// })
+	// console.log('config', discordPage.url())
 
-	// await confUser.voiceAndVideo.sensibility.set(0)
-	// await confUser.voiceAndVideo.alwaysVideo.disable()
-	// await confUser.voiceAndVideo.echoCancellation.disable()
-	// await confUser.voiceAndVideo.hardwareAcceleration.disable()
-	// await confUser.voiceAndVideo.automaticGain.disable()
-	// await confUser.voiceAndVideo.streamPreviews.disable()
+	await confUser.open()
+	await confUser.voiceAndVideo.outputVolume.set(0)
 
 	// SECTION :Select ---------------------------------------------
 	// await discord.server.select(nameServer)
 	// console.log('server', discordPage.url())
+
 	// await discord.channel.select(nameChannel)
+	// console.log('channel', discordPage.url())
+
 	return false
 }
-
-// async () => {
-// 	// await confUser.voiceAndVideo.input.setDevice(inputDevice)
-// 	// console.log('setDevice', inputDevice)
-// 	// const selected1 = await confUser.voiceAndVideo.input.getSelected()
-// 	// console.log('selected', selected1)
-// }
