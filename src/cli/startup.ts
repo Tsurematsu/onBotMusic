@@ -40,10 +40,11 @@ export default async function startup({ console_log, trowError }) {
 	await confUser.open()
 
 	// await confUser.voiceAndVideo.sensibility.set(0)
-	// console.log('value', await confUser.voiceAndVideo.sensibility.get())
 	// await confUser.voiceAndVideo.alwaysVideo.disable()
 	// await confUser.voiceAndVideo.echoCancellation.disable()
-	await confUser.voiceAndVideo.hardwareAcceleration.enable()
+	// await confUser.voiceAndVideo.hardwareAcceleration.disable()
+	// await confUser.voiceAndVideo.automaticGain.disable()
+	// await confUser.voiceAndVideo.streamPreviews.disable()
 
 	// SECTION :Select ---------------------------------------------
 	// await discord.server.select(nameServer)
