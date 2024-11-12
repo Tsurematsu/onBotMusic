@@ -1,3 +1,4 @@
+// DEPRECATED : This file is deprecated and will be removed in the future. Please use the new version of this file located in src/discordScrap/Channel/connect.ts (function (page, channelName):boolean) )
 import listChannel from './modules/listChannels'
 class Select {
 	listChannels = []
