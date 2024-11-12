@@ -65,9 +65,13 @@ export default async function startup({ console_log, trowError }) {
 	await discord.channel.connect(nameChannel)
 	console.log('channel', discordPage.url())
 
-	await new Promise((resolve) => setTimeout(resolve, 5000))
-	await discord.channel.disconnect()
-	console.log('disconnect', discordPage.url())
+	// SECTION :Testing close ---------------------------------------------
+	async function testingClose(discord: DiscordScrap) {
+		await new Promise((resolve) => setTimeout(resolve, 5000))
+		await discord.channel.disconnect()
+		console.log('disconnect', discordPage.url())
+	}
+	// await testingClose(discord)
 
 	return false
 }
