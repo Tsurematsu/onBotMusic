@@ -19,7 +19,6 @@ export default async function getProperty(page: Page) {
 			}
 			return elementOption.className
 		}
-		main(property)
 		return main(property)
 	})
 }

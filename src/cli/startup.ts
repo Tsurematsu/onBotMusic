@@ -40,6 +40,7 @@ export default async function startup({ console_log, trowError }) {
 	await confUser.open()
 
 	await confUser.voiceAndVideo.sensibility.set(0)
+	console.log('value', await confUser.voiceAndVideo.sensibility.get())
 
 	// SECTION :Select ---------------------------------------------
 	// await discord.server.select(nameServer)

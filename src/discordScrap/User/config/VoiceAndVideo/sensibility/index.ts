@@ -1,11 +1,17 @@
 import type { Page } from 'puppeteer'
 import selectOption from '../../modules/selectOption'
 import getProperty from './modules/getProperty'
+import getSliceValue from './modules/getSliceValue'
 import scrollToElement from './modules/scrollToElement'
 export default class Sensibility {
 	page: Page
 	constructor(page: Page) {
 		this.page = page
+	}
+	async get() {
+		await selectOption(this.page, 'Voz y vídeo')
+		await this.page.waitForSelector('div[role="tabpanel"]')
+		return await getSliceValue(this.page)
 	}
 	async set(value) {
 		await selectOption(this.page, 'Voz y vídeo')
