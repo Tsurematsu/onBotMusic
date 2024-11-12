@@ -21,7 +21,7 @@ export default async function startup({ console_log, trowError }) {
 	const browser = await puppeteer.launch({
 		headless: false,
 		devtools: false,
-		// userDataDir: argumentsBrowser.userDataDir,
+		userDataDir: argumentsBrowser.userDataDir,
 		args: ['--no-sandbox', '--disable-setuid-sandbox'],
 		ignoreDefaultArgs: ['--enable-automation'],
 	})
@@ -59,8 +59,8 @@ export default async function startup({ console_log, trowError }) {
 	// await confUser.open()
 
 	// SECTION :Select ---------------------------------------------
-	// await discord.server.select(nameServer)
-	// console.log('server', discordPage.url())
+	await discord.server.select(nameServer)
+	console.log('server', discordPage.url())
 
 	// await discord.channel.select(nameChannel)
 	// console.log('channel', discordPage.url())
