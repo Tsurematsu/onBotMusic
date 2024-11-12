@@ -39,8 +39,9 @@ export default async function startup({ console_log, trowError }) {
 	const confUser = discord.user.config
 	await confUser.open()
 
-	await confUser.voiceAndVideo.sensibility.set(0)
-	console.log('value', await confUser.voiceAndVideo.sensibility.get())
+	// await confUser.voiceAndVideo.sensibility.set(0)
+	// console.log('value', await confUser.voiceAndVideo.sensibility.get())
+	await confUser.voiceAndVideo.alwaysVideo.enable()
 
 	// SECTION :Select ---------------------------------------------
 	// await discord.server.select(nameServer)
