@@ -57,7 +57,7 @@ export default async function startup({ console_log, trowError }) {
 	await discord.channel.connect(nameChannel)
 	console.log('channel', discord.page.url())
 
-	await discord.chat.open(async () => {})
+	await discord.chat.open()
 
 	// SECTION :Testing close ---------------------------------------------
 	async function testingClose(discord: DiscordScrap) {
