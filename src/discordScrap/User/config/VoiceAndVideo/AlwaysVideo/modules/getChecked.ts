@@ -1,6 +1,6 @@
 import type { Page } from 'puppeteer'
 
-export default async function getProperty(page: Page) {
+export default async function getChecked(page: Page) {
 	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	const { document } = Object as any
 	return await page.evaluate(() => {
@@ -20,9 +20,15 @@ export default async function getProperty(page: Page) {
 						elementOption = element
 					}
 				}
-				return elementOption.className
+				const checkedElement = elementOption.parentElement
+					.querySelectorAll('div')[1]
+					.querySelector('div')
+				return checkedElement
+					? checkedElement.className.includes('checked')
+					: null
 			} catch (error) {
-				return ''
+				console.log('--------> ', error)
+				return null
 			}
 		}
 		return main(property)
