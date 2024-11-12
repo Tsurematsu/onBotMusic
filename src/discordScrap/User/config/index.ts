@@ -9,7 +9,15 @@ class Config {
 		this.page = page
 		this.voiceAndVideo = new VoiceAndVideo(page)
 	}
-	open = () => openConfig(this.page)
-	close = () => closeConfig(this.page)
+	async open(callback = null) {
+		if (callback !== null) {
+			await callback(openConfig(this.page))
+			await this.close()
+		}
+		return await openConfig(this.page)
+	}
+	async close() {
+		return await closeConfig(this.page)
+	}
 }
 export default Config

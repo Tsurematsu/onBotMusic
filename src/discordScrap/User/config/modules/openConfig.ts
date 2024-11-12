@@ -5,7 +5,7 @@ export default async function openConfig(page: Page) {
 			timeout: 500,
 		})
 		await page.click('button[aria-label="Ajustes de usuario"]')
-		await new Promise((resolve) => setTimeout(resolve, 1000))
+		await new Promise((resolve) => setTimeout(resolve, 2000))
 		return true
 	} catch {
 		return false

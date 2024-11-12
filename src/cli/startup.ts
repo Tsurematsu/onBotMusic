@@ -13,6 +13,7 @@ export default async function startup({ console_log, trowError }) {
 	const configChannel = config.channel.properties()
 	const nameServer = 'Programadores y Estudiantes | Comunidad de Programación'
 	const nameChannel = "Tsure's Channel"
+	const inputDevice = 'VB-Audio Virtual Cable'
 	argumentsBrowser.headless = false
 
 	// SECTION :Init ---------------------------------------------
@@ -35,9 +36,15 @@ export default async function startup({ console_log, trowError }) {
 
 	// SECTION :Config user ---------------------------------------------
 	const confUser = discord.user.config
-	await confUser.open()
-	await confUser.voiceAndVideo.input.getDevices()
-	// await discord.user.config.close()
+	await confUser.open(async () => {
+		await confUser.voiceAndVideo.into()
+		const selected0 = await confUser.voiceAndVideo.input.getSelected()
+		console.log('selected', selected0)
+	})
+	// const listDevices = await confUser.voiceAndVideo.input.getDevices()
+	// console.log('listDevices', listDevices.default)
+
+	// await confUser.close()
 	// SECTION :Select ---------------------------------------------
 	// await discord.server.select(nameServer)
 	// console.log('server', discordPage.url())
