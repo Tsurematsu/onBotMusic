@@ -6,6 +6,7 @@ class Login {
 		this.page = page
 	}
 	async main(credencial) {
+		let flagLogin = true
 		const element = {
 			email: 'input[name="email"]',
 			password: 'input[name="password"]',
@@ -25,12 +26,13 @@ class Login {
 
 				await this.page.waitForSelector(element.button)
 				await this.page.click(element.button)
+				flagLogin = false
 			} catch (error) {}
 		}
-		await valueLogIn(this.page, 2000)
 		await this.page.waitForSelector(
 			'nav[aria-label="Barra lateral de servidores"]',
 		)
+		return flagLogin
 	}
 }
 export default Login

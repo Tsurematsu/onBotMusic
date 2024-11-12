@@ -29,33 +29,35 @@ export default async function startup({ console_log, trowError }) {
 
 	// SECTION :Run ---------------------------------------------
 	const discord = await new DiscordScrap().make(browser)
-	await discord.user.login(credencial)
-	console.log('login', discord.page.url())
+	const onLogin = await discord.user.login(credencial)
+	console.log('login [', onLogin, ']', discord.page.url())
 
 	// SECTION :Config user ---------------------------------------------
-	const confUser = discord.user.config
-	await confUser.open(async () => {
-		await confUser.voiceAndVideo.inputVolume.set(50)
-		await confUser.voiceAndVideo.outputVolume.set(0)
-		await confUser.voiceAndVideo.input.setDevice(inputDevice)
-		await confUser.voiceAndVideo.sensibility.set(0)
-		await confUser.voiceAndVideo.alwaysVideo.disable()
-		await confUser.voiceAndVideo.echoCancellation.disable()
-		await confUser.voiceAndVideo.hardwareAcceleration.disable()
-		await confUser.voiceAndVideo.automaticGain.disable()
-		await confUser.voiceAndVideo.streamPreviews.disable()
-		await confUser.voiceAndVideo.noiseSuppression.nothing()
-	})
-	console.log('config', discord.page.url())
+	if (!onLogin) {
+		const confUser = discord.user.config
+		await confUser.open(async () => {
+			await confUser.voiceAndVideo.inputVolume.set(50)
+			await confUser.voiceAndVideo.outputVolume.set(0)
+			await confUser.voiceAndVideo.input.setDevice(inputDevice)
+			await confUser.voiceAndVideo.sensibility.set(0)
+			await confUser.voiceAndVideo.alwaysVideo.disable()
+			await confUser.voiceAndVideo.echoCancellation.disable()
+			await confUser.voiceAndVideo.hardwareAcceleration.disable()
+			await confUser.voiceAndVideo.automaticGain.disable()
+			await confUser.voiceAndVideo.streamPreviews.disable()
+			await confUser.voiceAndVideo.noiseSuppression.nothing()
+		})
+		console.log('config', discord.page.url())
+	}
 
-	// await confUser.open()
-
-	// SECTION :Select ---------------------------------------------
+	// SECTION :Select ----------------------------------------------------
 	await discord.server.select(nameServer)
 	console.log('server', discord.page.url())
 
 	await discord.channel.connect(nameChannel)
 	console.log('channel', discord.page.url())
+
+	await discord.chat.open(async () => {})
 
 	// SECTION :Testing close ---------------------------------------------
 	async function testingClose(discord: DiscordScrap) {
@@ -64,6 +66,5 @@ export default async function startup({ console_log, trowError }) {
 		console.log('disconnect', discord.page.url())
 	}
 	// await testingClose(discord)
-
 	return false
 }
