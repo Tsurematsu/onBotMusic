@@ -1,4 +1,4 @@
-import type { Page } from 'puppeteer'
+import type { Browser, Page } from 'puppeteer'
 import Channel from './Channel'
 import Server from './Server'
 import User from './User'
@@ -7,11 +7,15 @@ class DiscordScrap {
 	server: Server
 	channel: Channel
 	user: User
-	constructor(page: Page) {
-		this.page = page
-		this.server = new Server(page)
-		this.channel = new Channel(page)
-		this.user = new User(page)
+	url
+	async make(browser: Browser) {
+		const context = browser.defaultBrowserContext()
+		await context.overridePermissions('https://discord.com', ['microphone'])
+		this.page = await browser.newPage()
+		this.server = new Server(this.page)
+		this.channel = new Channel(this.page)
+		this.user = new User(this.page)
+		return this
 	}
 }
 export default DiscordScrap

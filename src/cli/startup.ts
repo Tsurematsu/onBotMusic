@@ -25,19 +25,12 @@ export default async function startup({ console_log, trowError }) {
 		args: ['--no-sandbox', '--disable-setuid-sandbox'],
 		ignoreDefaultArgs: ['--enable-automation'],
 	})
-	const context = browser.defaultBrowserContext()
-	await context.overridePermissions('https://discord.com', ['microphone'])
-
-	const musicPage = await browser.newPage()
-	const discordPage = await browser.newPage()
+	// const musicPage = await browser.newPage()
 
 	// SECTION :Run ---------------------------------------------
-	const discord = new DiscordScrap(discordPage)
+	const discord = await new DiscordScrap().make(browser)
 	await discord.user.login(credencial)
-	await discordPage.waitForSelector(
-		'nav[aria-label="Barra lateral de servidores"]',
-	)
-	console.log('login', discordPage.url())
+	console.log('login', discord.page.url())
 
 	// SECTION :Config user ---------------------------------------------
 	const confUser = discord.user.config
@@ -54,22 +47,22 @@ export default async function startup({ console_log, trowError }) {
 		await confUser.voiceAndVideo.noiseSuppression.nothing()
 		await new Promise((resolve) => setTimeout(resolve, 1000))
 	})
-	console.log('config', discordPage.url())
+	console.log('config', discord.page.url())
 
 	// await confUser.open()
 
 	// SECTION :Select ---------------------------------------------
 	await discord.server.select(nameServer)
-	console.log('server', discordPage.url())
+	console.log('server', discord.page.url())
 
 	await discord.channel.connect(nameChannel)
-	console.log('channel', discordPage.url())
+	console.log('channel', discord.page.url())
 
 	// SECTION :Testing close ---------------------------------------------
 	async function testingClose(discord: DiscordScrap) {
 		await new Promise((resolve) => setTimeout(resolve, 5000))
 		await discord.channel.disconnect()
-		console.log('disconnect', discordPage.url())
+		console.log('disconnect', discord.page.url())
 	}
 	// await testingClose(discord)
 

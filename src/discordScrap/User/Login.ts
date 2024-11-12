@@ -28,6 +28,9 @@ class Login {
 			} catch (error) {}
 		}
 		await valueLogIn(this.page, 2000)
+		await this.page.waitForSelector(
+			'nav[aria-label="Barra lateral de servidores"]',
+		)
 	}
 }
 export default Login
