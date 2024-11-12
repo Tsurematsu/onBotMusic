@@ -14,6 +14,7 @@ class Config {
 			await openConfig(this.page)
 			await callback()
 			await closeConfig(this.page)
+			await new Promise((resolve) => setTimeout(resolve, 500))
 			return
 		}
 		return await openConfig(this.page)

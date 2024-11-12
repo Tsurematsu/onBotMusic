@@ -45,7 +45,6 @@ export default async function startup({ console_log, trowError }) {
 		await confUser.voiceAndVideo.automaticGain.disable()
 		await confUser.voiceAndVideo.streamPreviews.disable()
 		await confUser.voiceAndVideo.noiseSuppression.nothing()
-		await new Promise((resolve) => setTimeout(resolve, 1000))
 	})
 	console.log('config', discord.page.url())
 
