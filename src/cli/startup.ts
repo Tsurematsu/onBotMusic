@@ -46,7 +46,6 @@ export default async function startup({ console_log, trowError }) {
 		console.log('selected', selected1)
 	})
 
-	// await confUser.close()
 	// SECTION :Select ---------------------------------------------
 	// await discord.server.select(nameServer)
 	// console.log('server', discordPage.url())
