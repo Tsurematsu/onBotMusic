@@ -42,6 +42,7 @@ export default async function startup({ console_log, trowError }) {
 	// SECTION :Config user ---------------------------------------------
 	const confUser = discord.user.config
 	// await confUser.open(async () => {
+	// await confUser.voiceAndVideo.outputVolume.set(0)
 	// 	await confUser.voiceAndVideo.input.setDevice(inputDevice)
 	// 	await confUser.voiceAndVideo.sensibility.set(0)
 	// 	await confUser.voiceAndVideo.alwaysVideo.disable()
@@ -55,7 +56,6 @@ export default async function startup({ console_log, trowError }) {
 	// console.log('config', discordPage.url())
 
 	await confUser.open()
-	await confUser.voiceAndVideo.outputVolume.set(0)
 
 	// SECTION :Select ---------------------------------------------
 	// await discord.server.select(nameServer)
