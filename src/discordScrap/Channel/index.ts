@@ -4,7 +4,7 @@ import listChannel from './modules/listChannels'
 class Channel {
 	listChannels = []
 	page
-	disconnect: typeof disconnect
+	disconnect
 	connect
 	constructor(page) {
 		this.page = page
