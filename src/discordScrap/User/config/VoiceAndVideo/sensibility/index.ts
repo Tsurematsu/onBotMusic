@@ -16,7 +16,7 @@ export default class Sensibility {
 			// Obtener las coordenadas del slider (posición y tamaño)
 			const boundingBox = await slider.boundingBox()
 			// Definir la posición en el slider donde hacer clic (por ejemplo, en el centro)
-			const xPos = boundingBox.x + value
+			const xPos = boundingBox.x + (value + 1)
 			const yPos = boundingBox.y + boundingBox.height / 2
 			// Simular un clic en esa posición
 			await this.page.mouse.click(xPos, yPos)
