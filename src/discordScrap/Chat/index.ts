@@ -1,9 +1,10 @@
 import type { Page } from 'puppeteer'
 import Microphone from './Microphone'
 import open from './open'
+import type Actions from './open/Actions'
 export default class Chat {
 	private page: Page
-	open
+	open: (callback: (actions: Actions) => void) => void
 	microphone: Microphone
 	constructor(page: Page) {
 		this.page = page

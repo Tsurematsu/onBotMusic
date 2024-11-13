@@ -11,12 +11,14 @@ export default async function startup({ console_log, trowError }) {
 	const configSystem = config.system.properties()
 	const configChannel = config.channel.properties()
 	const argumentsBrowser = config.browser.properties()
+
 	// SECTION :Data ---------------------------------------------
 	const credencial = process.env
 	const nameServer = 'Programadores y Estudiantes | Comunidad de Programación'
 	const nameChannel = "Tsure's Channel"
 	const inputDevice = 'VB-Audio Virtual Cable'
 	argumentsBrowser.headless = false
+
 	// SECTION :Init ---------------------------------------------
 	const browser = await puppeteer.launch({
 		headless: false,
@@ -57,10 +59,16 @@ export default async function startup({ console_log, trowError }) {
 	await discord.channel.connect(nameChannel)
 	console.log('channel', discord.page.url())
 
+	// SECTION :Chat ------------------------------------------------------
 	await discord.chat.microphone.unMute()
-	console.log('microphone', discord.page.url())
+	console.log('microphone unmute')
 
-	// await discord.chat.open()
+	await discord.chat.open(async (actions) => {
+		actions.send('Hola')
+		actions.listen((message) => {
+			console.log('message:', message)
+		})
+	})
 
 	// SECTION :Testing close ---------------------------------------------
 	async function testingClose(discord: DiscordScrap) {

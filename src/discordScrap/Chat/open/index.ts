@@ -1,8 +1,10 @@
-export default async function open(page, callback) {
-	page
-	// aria-label="Mostrar chat"
-	const button = await page.$('button[aria-label*="Mostrar chat"]')
-	if (button) await button.click()
+import type { Page } from 'puppeteer'
+import Actions from './Actions'
 
-	console.log('---> open')
+export default async function open(
+	page: Page,
+	callback: (actions: Actions) => void,
+) {
+	const actions = new Actions(page)
+	callback(actions)
 }
