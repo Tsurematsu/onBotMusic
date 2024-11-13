@@ -39,15 +39,33 @@ export default async function startup({ console_log, trowError }) {
 		const confUser = discord.user.config
 		await confUser.open(async () => {
 			await confUser.voiceAndVideo.inputVolume.set(50)
+			console.log('[config] inputVolume')
+
 			await confUser.voiceAndVideo.outputVolume.set(0)
+			console.log('[config] outputVolume')
 			await confUser.voiceAndVideo.input.setDevice(inputDevice)
+			console.log('[config] input')
+
 			await confUser.voiceAndVideo.sensibility.set(0)
+			console.log('[config] sensibility')
+
 			await confUser.voiceAndVideo.alwaysVideo.disable()
+			console.log('[config] alwaysVideo')
+
 			await confUser.voiceAndVideo.echoCancellation.disable()
+			console.log('[config] echoCancellation')
+
 			await confUser.voiceAndVideo.hardwareAcceleration.disable()
+			console.log('[config] hardwareAcceleration')
+
 			await confUser.voiceAndVideo.automaticGain.disable()
+			console.log('[config] automaticGain')
+
 			await confUser.voiceAndVideo.streamPreviews.disable()
+			console.log('[config] streamPreviews')
+
 			await confUser.voiceAndVideo.noiseSuppression.nothing()
+			console.log('[config] noiseSuppression')
 		})
 		console.log('config', discord.page.url())
 	}
