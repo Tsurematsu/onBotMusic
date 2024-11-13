@@ -66,9 +66,9 @@ export default async function startup({ console_log, trowError }) {
 	await discord.chat.open(async (actions) => {
 		const messages = await actions.messages()
 		console.log('messages:', messages)
-		// actions.listen((message) => {
-		// 	console.log('message:', message)
-		// })
+		actions.listen((message) => {
+			console.log('message:', message)
+		})
 	})
 
 	// SECTION :Testing close ---------------------------------------------

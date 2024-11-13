@@ -1,8 +1,8 @@
-import type { Page } from 'puppeteer'
+import type listenChat from '@/discordScrap/modulesTop/listenChat'
 
 export default async function listen(
-	page: Page,
+	onListenChat: listenChat,
 	callback: (message: string) => void,
 ) {
-	console.log('listen')
+	onListenChat.listen(callback)
 }
