@@ -91,10 +91,6 @@ export default async function startup({ console_log, trowError }) {
 						actions.end()
 						return
 					}
-					if (data.message.includes('muestrame eso que tienes')) {
-						await actions.send('No puedo hacer eso')
-						return
-					}
 					if (data.message.includes('Hola')) {
 						await actions.send('Hola, ¿en qué puedo ayudarte?')
 						return
