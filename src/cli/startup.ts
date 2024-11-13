@@ -38,6 +38,8 @@ export default async function startup({ console_log, trowError }) {
 	if (!onLogin) {
 		const confUser = discord.user.config
 		await confUser.open(async () => {
+			console.log('config open', discord.page.url())
+
 			await confUser.voiceAndVideo.inputVolume.set(50)
 			console.log('[config] inputVolume')
 
