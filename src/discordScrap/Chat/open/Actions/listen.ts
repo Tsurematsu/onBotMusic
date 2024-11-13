@@ -1,8 +1,9 @@
-import type listenChat from '@/discordScrap/modulesTop/listenChat'
+import type ListenChat from '@/discordScrap/modulesTop/listenChat'
+import type { dataMessage } from '@/discordScrap/modulesTop/listenChat'
 
 export default async function listen(
-	onListenChat: listenChat,
-	callback: (message: string) => void,
+	onListenChat: ListenChat,
+	callback: (message: dataMessage) => void,
 ) {
 	onListenChat.listen(callback)
 }

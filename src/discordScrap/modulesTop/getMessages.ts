@@ -1,4 +1,5 @@
 // @ts-nocheck
+
 export default async function getMessages(page) {
 	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	const { window } = Object as any

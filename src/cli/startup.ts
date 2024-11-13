@@ -64,10 +64,10 @@ export default async function startup({ console_log, trowError }) {
 	console.log('microphone unmute')
 
 	await discord.chat.open(async (actions) => {
-		const messages = await actions.messages()
-		console.log('messages:', messages)
-		actions.listen((message) => {
-			console.log('message:', message)
+		// const messages = await actions.messages()
+		// console.log('messages:', messages)
+		actions.listen((data) => {
+			console.log('message:', data.message)
 		})
 	})
 

@@ -1,4 +1,3 @@
-import path from 'node:path'
 import type { Browser, Page } from 'puppeteer'
 import Channel from './Channel'
 import Chat from './Chat'
@@ -16,8 +15,6 @@ class DiscordScrap {
 		const context = browser.defaultBrowserContext()
 		await context.overridePermissions('https://discord.com', ['microphone'])
 		this.page = await browser.newPage()
-		const pathIN = path.resolve(__dirname, './topModules/getMessages.js')
-		await this.page.addScriptTag({ path: pathIN })
 		this.server = new Server(this.page)
 		this.channel = new Channel(this.page)
 		this.user = new User(this.page)

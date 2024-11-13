@@ -1,6 +1,6 @@
 import type { Page } from 'puppeteer'
 import getMessages from '../../modulesTop/getMessages'
-import listenChat from '../../modulesTop/listenChat'
+import ListenChat from '../../modulesTop/listenChat'
 import Actions from './Actions'
 export default async function open(
 	page: Page,
@@ -11,6 +11,6 @@ export default async function open(
 	if (button) await button.click()
 	await new Promise((resolve) => setTimeout(resolve, 1000))
 	await getMessages(page)
-	const onListenChat: listenChat = await new listenChat(page).start()
+	const onListenChat: ListenChat = await new ListenChat(page).start()
 	callback(new Actions(page, onListenChat))
 }

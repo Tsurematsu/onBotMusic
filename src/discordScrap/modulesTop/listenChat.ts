@@ -1,5 +1,11 @@
 // IMPORTANT: This function need apply the ofter functions "src\discordScrap\modules\getMessages.js"
-export default class listenChat {
+export interface dataMessage {
+	username: string
+	date: string
+	message: string
+	id: string
+}
+export default class ListenChat {
 	page
 	callbackList = []
 	constructor(page) {
@@ -9,8 +15,8 @@ export default class listenChat {
 		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 		const { window } = Object as any
 		const page = this.page
-		await page.exposeFunction('listenChat_event', async (message) => {
-			for (const callback of this.callbackList) callback(message)
+		await page.exposeFunction('listenChat_event', (dataMessage) => {
+			for (const callback of this.callbackList) callback(dataMessage)
 		})
 		await page.evaluate(() => {
 			window.listenChat = () => {
@@ -26,24 +32,28 @@ export default class listenChat {
 					.querySelector('ol')
 				// -------------------------------------------------
 				const mutationCallback = (mutationsList) => {
+					let dataReceived = null
 					for (const element of mutationsList) {
 						const HTMLelement = element.addedNodes[0]
 						if (HTMLelement && HTMLelement.tagName === 'LI') {
 							const temMSG = window.getMessages()
-							if (temMSG.length === 0) continue
-							window.listenChat_event(temMSG[temMSG.length - 1])
+							dataReceived = temMSG[temMSG.length - 1]
 							break
 						}
 					}
+					console.log('----> [request] => ', dataReceived)
+					if (dataReceived) window.listenChat_event(dataReceived)
 				}
 				// -------------------------------------------------
 				const observer = new MutationObserver(mutationCallback)
 				observer.observe(container, config)
 			}
+			window.listenChat()
+			return true
 		})
 		return this
 	}
-	listen(callback) {
+	listen(callback: (dataMessage) => void) {
 		this.callbackList.push(callback)
 	}
 }
