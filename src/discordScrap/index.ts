@@ -1,6 +1,6 @@
 import type { Browser, Page } from 'puppeteer'
 import Channel from './Channel'
-import Chat from './Chat/Chat'
+import Chat from './Chat'
 import Server from './Server'
 import User from './User'
 class DiscordScrap {

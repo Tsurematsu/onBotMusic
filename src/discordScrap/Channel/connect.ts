@@ -13,5 +13,8 @@ export default async function connect(page: Page, channelName: string) {
 		return false
 	}
 	await page.click(`a[data-list-item-id="${data_list_item_id}"]`)
+	await page.waitForSelector(`a[href*="/channels"]`)
+	const channelClick = await page.$(`a[href*="/channels"]`)
+	if (channelClick) await channelClick.click()
 	return true
 }

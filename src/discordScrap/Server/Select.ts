@@ -16,10 +16,6 @@ class Select {
 		}
 		if (data_list_item_id === null) return false
 		await this.page.click(`div[data-list-item-id="${data_list_item_id}"]`)
-		const elements = await this.page.$$(`div[text-variant="text-xs/normal"]`)
-		const channelClick = elements[1]
-		if (channelClick) await channelClick.click()
-
 		return true
 	}
 }
