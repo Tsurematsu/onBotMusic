@@ -5,9 +5,7 @@ import Chat from './Chat'
 import Server from './Server'
 import User from './User'
 class DiscordScrap {
-	private scriptPaths = {
-		path: path.resolve(__dirname, './topModules/getMessages.js'),
-	}
+	private scriptPaths = {}
 	page: Page
 	server: Server
 	channel: Channel
@@ -18,7 +16,8 @@ class DiscordScrap {
 		const context = browser.defaultBrowserContext()
 		await context.overridePermissions('https://discord.com', ['microphone'])
 		this.page = await browser.newPage()
-		await this.page.addScriptTag(this.scriptPaths)
+		const pathIN = path.resolve(__dirname, './topModules/getMessages.js')
+		await this.page.addScriptTag({ path: pathIN })
 		this.server = new Server(this.page)
 		this.channel = new Channel(this.page)
 		this.user = new User(this.page)

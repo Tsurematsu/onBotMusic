@@ -1,3 +1,4 @@
+// DEPRECATED: because bug in select channel
 import type { Page } from 'puppeteer'
 export default async function topScroll(page: Page) {
 	try {
