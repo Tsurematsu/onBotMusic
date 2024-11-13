@@ -21,7 +21,7 @@ export default async function startup({ console_log, trowError }) {
 
 	// SECTION :Init ---------------------------------------------
 	const browser = await puppeteer.launch({
-		headless: false,
+		headless: true,
 		devtools: false,
 		userDataDir: argumentsBrowser.userDataDir,
 		args: ['--no-sandbox', '--disable-setuid-sandbox'],
@@ -64,19 +64,36 @@ export default async function startup({ console_log, trowError }) {
 	console.log('microphone unmute')
 
 	await discord.chat.open(async (actions) => {
-		// const messages = await actions.messages()
-		// console.log('messages:', messages)
+		console.log('chat ready')
 		actions.listen((data) => {
-			console.log('message:', data.message)
+			const commands = async () => {
+				if (data.message.includes('@Asuna')) {
+					if (data.message.includes('close') && data.username === 'Tsure') {
+						await actions.send('Okay me desconecto')
+						actions.end()
+						return
+					}
+					if (data.message.includes('muestrame eso que tienes')) {
+						await actions.send('No puedo hacer eso')
+						return
+					}
+					if (data.message.includes('Hola')) {
+						await actions.send('Hola, ¿en qué puedo ayudarte?')
+						return
+					}
+				}
+			}
+			commands()
 		})
 	})
 
-	// SECTION :Testing close ---------------------------------------------
-	async function testingClose(discord: DiscordScrap) {
-		await new Promise((resolve) => setTimeout(resolve, 5000))
-		await discord.channel.disconnect()
-		console.log('disconnect', discord.page.url())
-	}
-	// await testingClose(discord)
+	await discord.channel.disconnect()
+	console.log('disconnect', discord.page.url())
+
+	await discord.close()
+	console.log('close', discord.page.url())
+
+	browser.close()
+	console.log('close browser')
 	return false
 }
