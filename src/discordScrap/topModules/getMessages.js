@@ -1,6 +1,5 @@
 // @ts-nocheck
-
-function main() {
+function getMessages() {
 	const parent = document.querySelector('div[class*="messagesWrapper_" ]')
 	const itemsChat = parent.querySelectorAll('li[class*="messageListItem"]')
 	const messages = []
