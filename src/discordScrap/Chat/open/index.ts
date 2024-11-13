@@ -1,5 +1,5 @@
 import type { Page } from 'puppeteer'
-import getMessages from '../../topModules/getMessages'
+import getMessages from '../../modulesTop/getMessages'
 import Actions from './Actions'
 export default async function open(
 	page: Page,

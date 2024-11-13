@@ -19,25 +19,26 @@ export default async function getMessages(page) {
 					let header = {
 						username: 'anonymous',
 						date: 'unknown',
+						id: 'unknown',
 					}
+					header.date = itemChat.querySelector('time').getAttribute('datetime')
+					header.id = itemChat.id
 					if (headerItem) {
 						const selectorUsername = 'span[id*="message-username-"]'
-						const selectorDate = 'span[class*="timestamp_"]'
 						header.username =
 							headerItem.querySelector(selectorUsername).innerText
 						if (header.username === 'average discor d user')
 							header.username = cacheHeader.username
-						header.date = headerItem.querySelector(selectorDate).innerText
-						header.date = header.date.replaceAll('\n', '').replaceAll('—', '')
-						header.date = String(header.date).trim()
 						cacheHeader = header
 					} else header = cacheHeader
-					const { username, date } = header
-					const messageItem = { username, date, message }
+					const { username, date, id } = header
+					const messageItem = { username, date, message, id }
 					messages.push(messageItem)
 				}
 				return messages
-			} catch {}
+			} catch {
+				return []
+			}
 		}
 	})
 }
