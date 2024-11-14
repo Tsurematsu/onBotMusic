@@ -20,7 +20,9 @@ export default class ManagerExtension {
 		browser.on('targetcreated', async (target) => {
 			if (target.type() === 'page') {
 				const page = await target.page()
-				await page.waitForNavigation({ waitUntil: 'domcontentloaded' })
+				try {
+					await page.waitForNavigation({ waitUntil: 'domcontentloaded' })
+				} catch {}
 				if ((await page.title()).includes(this.title)) await page.close()
 			}
 		})

@@ -5,7 +5,6 @@ export default async function setVolume(page: Page, value: number) {
 	if (value < 0 || value > 100)
 		throw new Error('El valor del volumen debe estar entre 0 y 100')
 	await page.waitForSelector('video')
-	console.log('setVolume:', value)
 	await page.evaluate((volume) => {
 		const videoElement = document.querySelector('video')
 		if (videoElement) {

@@ -32,6 +32,9 @@ export default async function startup({ console_log, trowError }) {
 		devtools: false,
 		userDataDir: dirUserData,
 		args: [
+			'--autoplay-policy=no-user-gesture-required',
+			'--disable-web-security',
+			'--disable-features=IsolateOrigins,site-per-process',
 			'--no-sandbox',
 			'--disable-setuid-sandbox',
 			...managerExtension.argumentsBrowser,
@@ -40,8 +43,8 @@ export default async function startup({ console_log, trowError }) {
 	})
 	await managerExtension.make(browser)
 	// SECTION :Run ---------------------------------------------
-	const youtube = await new scrapYoutube().make(browser)
 	const discord = await new scrapDiscord().make(browser)
+	const youtube = await new scrapYoutube().make(browser, discord.page)
 	const onLogin = await discord.user.login(credencial)
 	console.log('login [', onLogin, ']', discord.page.url())
 	// SECTION :Config user ---------------------------------------------
@@ -77,7 +80,7 @@ export default async function startup({ console_log, trowError }) {
 	console.log('server', discord.page.url())
 	const connected = await discord.channel.connect(nameChannel)
 	console.log('channel [', connected, ']', discord.page.url())
-	if (connected) return
+	if (!connected) return
 	// SECTION :Chat ------------------------------------------------------
 	await discord.chat.microphone.unMute()
 	console.log('microphone unmute')

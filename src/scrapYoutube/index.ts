@@ -5,6 +5,7 @@ export default class scrapYoutube {
 	onAdsDetected = 0
 	private page: Page
 	private browser: Browser
+	private pageReturn: Page
 	private async detectedAds() {
 		// Method 1
 		await new Promise((resolve) => setTimeout(resolve, 100))
@@ -22,7 +23,8 @@ export default class scrapYoutube {
 		} else resolve()
 	}
 	actions: Actions
-	async make(browser: Browser) {
+	async make(browser: Browser, pageReturn: Page = null) {
+		this.pageReturn = pageReturn
 		this.browser = browser
 		this.page = await browser.newPage()
 		this.actions = new Actions(this.page)
@@ -31,10 +33,15 @@ export default class scrapYoutube {
 	async goto(url: string, pageReturn: Page = null) {
 		this.onAdsDetected = 0
 		await this.page.bringToFront()
+		await this.page.emulateMediaFeatures([
+			{ name: 'prefers-reduced-motion', value: 'no-preference' },
+		])
 		await this.page.goto(url)
 		await this.page.waitForSelector('video')
 		await new Promise<void>((resolve) => this.loopAds(resolve))
 		if (pageReturn) pageReturn.bringToFront()
+		if (this.pageReturn) this.pageReturn.bringToFront()
+		await new Promise((resolve) => setTimeout(resolve, 100))
 		return this.onAdsDetected
 	}
 }
