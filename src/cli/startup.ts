@@ -25,18 +25,36 @@ export default async function startup({ console_log, trowError }) {
 	const nameServer = 'Programadores y Estudiantes | Comunidad de Programación'
 	const nameChannel = "Tsure's Channel"
 	const inputDevice = 'VB-Audio Virtual Cable'
+	const extension = 'C:\\Users\\danie\\Documents\\AdGuard'
+	const dirUserData = 'C:\\Users\\danie\\Documents\\CHROMIUN'
 	argumentsBrowser.headless = false
 
 	// SECTION :Init ---------------------------------------------
 	const browser = await puppeteer.launch({
-		headless: true,
+		headless: false,
 		devtools: false,
-		userDataDir: argumentsBrowser.userDataDir,
-		args: ['--no-sandbox', '--disable-setuid-sandbox'],
+		// userDataDir: dirUserData,
+		args: [
+			'--no-sandbox',
+			'--disable-setuid-sandbox',
+			`--disable-extensions-except=${extension}`,
+			`--load-extension=${extension}`,
+		],
 		ignoreDefaultArgs: ['--enable-automation'],
 	})
-	// const musicPage = await browser.newPage()
 
+	browser.on('targetcreated', async (target) => {
+		if (target.type() === 'page') {
+			const page = await target.page()
+			await page.waitForNavigation({ waitUntil: 'domcontentloaded' })
+			if ((await page.title()).includes('AdGuard')) await page.close()
+		}
+	})
+
+	const musicPage = await browser.newPage()
+	await musicPage.goto('https://www.youtube.com/watch?v=Fg_zw476KfE')
+
+	return
 	// SECTION :Run ---------------------------------------------
 	const discord = await new DiscordScrap().make(browser)
 	const onLogin = await discord.user.login(credencial)
@@ -53,6 +71,7 @@ export default async function startup({ console_log, trowError }) {
 
 			await confUser.voiceAndVideo.outputVolume.set(0)
 			console.log('[config] outputVolume')
+
 			await confUser.voiceAndVideo.input.setDevice(inputDevice)
 			console.log('[config] input')
 
