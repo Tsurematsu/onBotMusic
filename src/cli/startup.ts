@@ -33,14 +33,22 @@ export default async function startup({ console_log, trowError }) {
 		args: [
 			'--no-sandbox',
 			'--disable-setuid-sandbox',
-			`--disable-extensions-except=${extension}`,
-			`--load-extension=${extension}`,
+			...managerExtension.argumentsBrowser,
 		],
 		ignoreDefaultArgs: ['--enable-automation'],
 	})
-	managerExtension.make(browser)
+	await managerExtension.make(browser)
+
 	// SECTION :Run ---------------------------------------------
 	const youtube = await new scrapYoutube().make(browser)
+	await youtube.goto('https://www.youtube.com/watch?v=1uL8r6MFcnI')
+	await youtube.actions.play()
+	await new Promise((resolve) => setTimeout(resolve, 5000))
+	await youtube.actions.pause()
+	await new Promise((resolve) => setTimeout(resolve, 5000))
+	await youtube.actions.play()
+
+	return
 	const discord = await new scrapDiscord().make(browser)
 	const onLogin = await discord.user.login(credencial)
 	console.log('login [', onLogin, ']', discord.page.url())

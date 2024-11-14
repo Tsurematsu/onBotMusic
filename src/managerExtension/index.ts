@@ -16,7 +16,7 @@ export default class ManagerExtension {
 			`--load-extension=${this.url}`,
 		]
 	}
-	make(browser: Browser) {
+	async make(browser: Browser) {
 		browser.on('targetcreated', async (target) => {
 			if (target.type() === 'page') {
 				const page = await target.page()
