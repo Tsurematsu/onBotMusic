@@ -1,15 +1,18 @@
-import type { Browser } from 'puppeteer'
+import type { Browser, Page } from 'puppeteer'
+import Actions from './Actions'
 
 export default class scrapYoutube {
+	private page: Page
+	actions: Actions
 	async make(browser: Browser) {
+		this.page = await browser.newPage()
+		this.actions = new Actions(this.page)
 		return this
 	}
+	async goto(url: string) {
+		await this.page.goto(url, {
+			waitUntil: 'networkidle2',
+		})
+		await this.page.bringToFront()
+	}
 }
-
-// const musicPage = await browser.newPage()
-// await musicPage.goto('https://www.youtube.com/watch?v=Fg_zw476KfE', {
-// 	waitUntil: 'networkidle2',
-// })
-// await musicPage.bringToFront()
-
-// return
