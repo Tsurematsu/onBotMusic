@@ -9,9 +9,8 @@
 import config from '@/configs/config'
 import dotenv from 'dotenv'
 import puppeteer from 'puppeteer'
-import DiscordScrap from '../scrapDiscord'
+import scrapDiscord from '../scrapDiscord'
 dotenv.config()
-
 export default async function startup({ console_log, trowError }) {
 	// SECTION :Setup ---------------------------------------------
 	await config.all.load()
@@ -60,7 +59,7 @@ export default async function startup({ console_log, trowError }) {
 	// return
 
 	// SECTION :Run ---------------------------------------------
-	const discord = await new DiscordScrap().make(browser)
+	const discord = await new scrapDiscord().make(browser)
 	const onLogin = await discord.user.login(credencial)
 	console.log('login [', onLogin, ']', discord.page.url())
 
