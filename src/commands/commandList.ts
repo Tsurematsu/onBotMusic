@@ -23,8 +23,8 @@ export default class commandList {
 		await this.actions.send('No quiero hacerte caso')
 	}
 	async play(msg = null) {
-		if (msg === null) {
-			await this.actions.send('No se ha encontrado el mensaje')
+		if (msg === null || msg === '') {
+			await this.YouTube.actions.play()
 			return
 		}
 		if (msg.includes('youtube.com')) {
