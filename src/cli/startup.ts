@@ -42,12 +42,15 @@ export default async function startup({ console_log, trowError }) {
 	// SECTION :Run ---------------------------------------------
 	const youtube = await new scrapYoutube().make(browser)
 	await youtube.goto('https://www.youtube.com/watch?v=1uL8r6MFcnI')
-	await youtube.actions.play()
+	// await youtube.actions.play()
+	// await new Promise((resolve) => setTimeout(resolve, 5000))
+	// await youtube.actions.pause()
+	// await new Promise((resolve) => setTimeout(resolve, 5000))
+	// await youtube.actions.play()
 	await new Promise((resolve) => setTimeout(resolve, 5000))
-	await youtube.actions.pause()
+	await youtube.actions.setVolume(0)
 	await new Promise((resolve) => setTimeout(resolve, 5000))
-	await youtube.actions.play()
-
+	await youtube.actions.setVolume(100)
 	return
 	const discord = await new scrapDiscord().make(browser)
 	const onLogin = await discord.user.login(credencial)
