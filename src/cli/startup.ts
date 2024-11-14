@@ -1,3 +1,4 @@
+import commands from '@/commands'
 import config from '@/configs/config'
 import ManagerExtension from '@/managerExtension'
 import scrapYoutube from '@/scrapYoutube'
@@ -38,20 +39,8 @@ export default async function startup({ console_log, trowError }) {
 		ignoreDefaultArgs: ['--enable-automation'],
 	})
 	await managerExtension.make(browser)
-
 	// SECTION :Run ---------------------------------------------
 	const youtube = await new scrapYoutube().make(browser)
-	await youtube.goto('https://www.youtube.com/watch?v=1uL8r6MFcnI')
-	// await youtube.actions.play()
-	// await new Promise((resolve) => setTimeout(resolve, 5000))
-	// await youtube.actions.pause()
-	// await new Promise((resolve) => setTimeout(resolve, 5000))
-	// await youtube.actions.play()
-	await new Promise((resolve) => setTimeout(resolve, 5000))
-	await youtube.actions.setVolume(0)
-	await new Promise((resolve) => setTimeout(resolve, 5000))
-	await youtube.actions.setVolume(100)
-	return
 	const discord = await new scrapDiscord().make(browser)
 	const onLogin = await discord.user.login(credencial)
 	console.log('login [', onLogin, ']', discord.page.url())
@@ -94,22 +83,7 @@ export default async function startup({ console_log, trowError }) {
 	console.log('microphone unmute')
 	await discord.chat.open(async (actions) => {
 		console.log('chat ready')
-		actions.listen((data) => {
-			const commands = async () => {
-				if (data.message.includes('@Asuna')) {
-					if (data.message.includes('close') && data.username === 'Tsure') {
-						await actions.send('Okay me desconecto')
-						actions.end()
-						return
-					}
-					if (data.message.includes('Hola')) {
-						await actions.send('Hola, ¿en qué puedo ayudarte?')
-						return
-					}
-				}
-			}
-			commands()
-		})
+		actions.listen((data) => commands(data, actions, youtube))
 	})
 	// SECTION :End ------------------------------------------------------
 	await discord.channel.disconnect()

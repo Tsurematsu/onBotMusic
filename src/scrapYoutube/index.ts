@@ -2,7 +2,7 @@ import type { Browser, Page } from 'puppeteer'
 import Actions from './Actions'
 
 export default class scrapYoutube {
-	onAdsDetected = console.log
+	onAdsDetected = 0
 	private page: Page
 	private browser: Browser
 	private async detectedAds() {
@@ -15,7 +15,7 @@ export default class scrapYoutube {
 	}
 	private async loopAds(resolve = () => {}) {
 		if (await this.detectedAds()) {
-			await this.onAdsDetected('Ads detected, reloading page...')
+			this.onAdsDetected++
 			await this.page.reload()
 			await this.page.waitForSelector('video')
 			await this.loopAds(resolve)
@@ -29,11 +29,13 @@ export default class scrapYoutube {
 		return this
 	}
 	async goto(url: string, pageReturn: Page = null) {
+		this.onAdsDetected = 0
 		await this.page.bringToFront()
 		await this.page.goto(url)
 		await this.page.waitForSelector('video')
 		await new Promise<void>((resolve) => this.loopAds(resolve))
 		if (pageReturn) pageReturn.bringToFront()
+		return this.onAdsDetected
 	}
 }
 
