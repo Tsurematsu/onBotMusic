@@ -1,5 +1,5 @@
-import type ListenChat from '@/discordScrap/modulesTop/listenChat'
-import type { dataMessage } from '@/discordScrap/modulesTop/listenChat'
+import type ListenChat from '@/scrapDiscord/modulesTop/listenChat'
+import type { dataMessage } from '@/scrapDiscord/modulesTop/listenChat'
 import type { Page } from 'puppeteer'
 import end from './end'
 import listen from './listen'

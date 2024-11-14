@@ -8,7 +8,10 @@ class Login {
 	}
 	async main(credencial) {
 		await this.page.bringToFront()
-		await this.page.goto('https://discord.com/login')
+		await this.page.goto('https://discord.com/login', {
+			waitUntil: 'networkidle2',
+		})
+		await this.page.bringToFront()
 		await new Promise((resolve) => setTimeout(resolve, 2000))
 		const loginIN = async (element, credencial) => {
 			try {

@@ -9,7 +9,7 @@
 import config from '@/configs/config'
 import dotenv from 'dotenv'
 import puppeteer from 'puppeteer'
-import DiscordScrap from '../discordScrap'
+import DiscordScrap from '../scrapDiscord'
 dotenv.config()
 
 export default async function startup({ console_log, trowError }) {
@@ -33,7 +33,7 @@ export default async function startup({ console_log, trowError }) {
 	const browser = await puppeteer.launch({
 		headless: false,
 		devtools: false,
-		// userDataDir: dirUserData,
+		userDataDir: dirUserData,
 		args: [
 			'--no-sandbox',
 			'--disable-setuid-sandbox',
@@ -51,10 +51,14 @@ export default async function startup({ console_log, trowError }) {
 		}
 	})
 
-	const musicPage = await browser.newPage()
-	await musicPage.goto('https://www.youtube.com/watch?v=Fg_zw476KfE')
+	// const musicPage = await browser.newPage()
+	// await musicPage.goto('https://www.youtube.com/watch?v=Fg_zw476KfE', {
+	// 	waitUntil: 'networkidle2',
+	// })
+	// await musicPage.bringToFront()
 
-	return
+	// return
+
 	// SECTION :Run ---------------------------------------------
 	const discord = await new DiscordScrap().make(browser)
 	const onLogin = await discord.user.login(credencial)
@@ -103,8 +107,9 @@ export default async function startup({ console_log, trowError }) {
 	await discord.server.select(nameServer)
 	console.log('server', discord.page.url())
 
-	await discord.channel.connect(nameChannel)
-	console.log('channel', discord.page.url())
+	const connected = await discord.channel.connect(nameChannel)
+	console.log('channel [', connected, ']', discord.page.url())
+	if (connected) return
 
 	// SECTION :Chat ------------------------------------------------------
 	await discord.chat.microphone.unMute()
