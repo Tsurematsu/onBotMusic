@@ -3,7 +3,7 @@ import type { Page } from 'puppeteer'
 export default async function setOption(page: Page, selector: string) {
 	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	const { document } = Object as any
-	return await page.evaluate((selector) => {
+	return await page.evaluate(async (selector) => {
 		const tag = 'Supresión de ruido'
 		function main(selector) {
 			const elements = document.querySelectorAll('h5')
@@ -37,6 +37,7 @@ export default async function setOption(page: Page, selector: string) {
 				}
 			}
 		}
-		return main(selector)
+		await new Promise((resolve) => setTimeout(resolve, 500))
+		return await main(selector)
 	}, selector)
 }

@@ -30,7 +30,7 @@ export default async function startup({ console_log, trowError }) {
 	const browser = await puppeteer.launch({
 		headless: false,
 		devtools: false,
-		userDataDir: dirUserData,
+		// userDataDir: dirUserData,
 		args: [
 			'--autoplay-policy=no-user-gesture-required',
 			'--disable-web-security',
@@ -48,52 +48,36 @@ export default async function startup({ console_log, trowError }) {
 	const onLogin = await discord.user.login(credencial)
 	console.log('login [', onLogin, ']', discord.page.url())
 	// SECTION :Config user ---------------------------------------------
+
 	if (!onLogin) {
 		const confUser = discord.user.config
 		await confUser.open(async () => {
-			console.log('config open', discord.page.url())
 			await confUser.voiceAndVideo.inputVolume.set(50)
-			console.log('[config] inputVolume')
 			await confUser.voiceAndVideo.outputVolume.set(0)
-			console.log('[config] outputVolume')
 			await confUser.voiceAndVideo.input.setDevice(inputDevice)
-			console.log('[config] input')
 			await confUser.voiceAndVideo.sensibility.set(0)
-			console.log('[config] sensibility')
 			await confUser.voiceAndVideo.alwaysVideo.disable()
-			console.log('[config] alwaysVideo')
 			await confUser.voiceAndVideo.echoCancellation.disable()
-			console.log('[config] echoCancellation')
 			await confUser.voiceAndVideo.hardwareAcceleration.disable()
-			console.log('[config] hardwareAcceleration')
 			await confUser.voiceAndVideo.automaticGain.disable()
-			console.log('[config] automaticGain')
 			await confUser.voiceAndVideo.streamPreviews.disable()
-			console.log('[config] streamPreviews')
 			await confUser.voiceAndVideo.noiseSuppression.nothing()
-			console.log('[config] noiseSuppression')
 		})
-		console.log('config', discord.page.url())
 	}
 	// SECTION :Select ----------------------------------------------------
 	await discord.server.select(nameServer)
-	console.log('server', discord.page.url())
 	const connected = await discord.channel.connect(nameChannel)
 	console.log('channel [', connected, ']', discord.page.url())
 	if (!connected) return
 	// SECTION :Chat ------------------------------------------------------
 	await discord.chat.microphone.unMute()
-	console.log('microphone unmute')
 	await discord.chat.open(async (actions) => {
 		console.log('chat ready')
 		actions.listen((data) => commands(data, actions, youtube))
 	})
 	// SECTION :End ------------------------------------------------------
 	await discord.channel.disconnect()
-	console.log('disconnect', discord.page.url())
 	await discord.close()
-	console.log('close', discord.page.url())
 	browser.close()
-	console.log('close browser')
 	return false
 }

@@ -13,6 +13,7 @@ class Login {
 		})
 		await this.page.bringToFront()
 		await new Promise((resolve) => setTimeout(resolve, 2000))
+		await this.page.bringToFront()
 		const loginIN = async (element, credencial) => {
 			try {
 				await this.page.waitForSelector(element.email)
