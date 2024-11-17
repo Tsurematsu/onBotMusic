@@ -30,7 +30,7 @@ export default async function startup({ console_log, trowError }) {
 	const browser = await puppeteer.launch({
 		headless: false,
 		devtools: false,
-		// userDataDir: dirUserData,
+		userDataDir: dirUserData,
 		args: [
 			'--autoplay-policy=no-user-gesture-required',
 			'--disable-web-security',
