@@ -1,12 +1,22 @@
 import commands from '@/commands'
 import config from '@/configs/config'
 import ManagerExtension from '@/managerExtension'
-import scrapYoutube from '@/scrapYoutube'
 import dotenv from 'dotenv'
 import puppeteer from 'puppeteer'
 import scrapDiscord from '../scrapDiscord'
 dotenv.config()
+
+import mpv from "node-mpv"
+
+
 export default async function startup({ console_log, trowError }) {
+	const mpvPlayer = new mpv({
+		audio_only: true,  // Equivalente a --no-video
+		auto_restart: false
+	});
+	mpvPlayer.setProperty('audio-device', 'wasapi/{39df27c4-7e33-4935-ae40-eb0e8067f95b}');
+	mpvPlayer.volume(30)
+
 	// SECTION :Setup ---------------------------------------------
 	await config.all.load()
 	const allPatch = config.all.patch()
@@ -28,7 +38,7 @@ export default async function startup({ console_log, trowError }) {
 	}
 	const managerExtension = new ManagerExtension(configExtension)
 	const browser = await puppeteer.launch({
-		headless: false,
+		headless: true,
 		devtools: false,
 		userDataDir: dirUserData,
 		args: [
@@ -44,7 +54,6 @@ export default async function startup({ console_log, trowError }) {
 	await managerExtension.make(browser)
 	// SECTION :Run ---------------------------------------------
 	const discord = await new scrapDiscord().make(browser)
-	const youtube = await new scrapYoutube().make(browser, discord.page)
 	const onLogin = await discord.user.login(credencial)
 	console.log('login [', onLogin, ']', discord.page.url())
 	// SECTION :Config user ---------------------------------------------
@@ -73,7 +82,7 @@ export default async function startup({ console_log, trowError }) {
 	await discord.chat.microphone.unMute()
 	await discord.chat.open(async (actions) => {
 		console.log('chat ready')
-		actions.listen((data) => commands(data, actions, youtube))
+		actions.listen((data) => commands(data, actions, mpvPlayer))
 	})
 	// SECTION :End ------------------------------------------------------
 	await discord.channel.disconnect()

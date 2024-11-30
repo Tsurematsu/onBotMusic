@@ -1,15 +1,15 @@
-import type Actions from '@/scrapDiscord/Chat/open/Actions'
-import type { dataMessage } from '@/scrapDiscord/modulesTop/listenChat'
-import type scrapYoutube from '@/scrapYoutube'
+import type Actions from '@/scrapDiscord/Chat/open/Actions';
+import type { dataMessage } from '@/scrapDiscord/modulesTop/listenChat';
+
 
 export default class commandList {
 	data: dataMessage
 	actions: Actions
-	YouTube: scrapYoutube
-	constructor(data: dataMessage, actions: Actions, YouTube: scrapYoutube) {
+	mpvPlayer
+	constructor(data: dataMessage, actions: Actions, mpvPlayer) {
 		this.data = data
 		this.actions = actions
-		this.YouTube = YouTube
+		this.mpvPlayer = mpvPlayer
 	}
 	async hola(msg = null) {
 		await this.actions.send('Hola, ¿en qué puedo ayudarte?')
@@ -17,6 +17,7 @@ export default class commandList {
 	async close(msg = null) {
 		if (this.data.username === 'Tsure') {
 			await this.actions.send('Okay me desconecto')
+			await this.mpvPlayer.quit();
 			this.actions.end()
 			return
 		}
@@ -24,23 +25,20 @@ export default class commandList {
 	}
 	async play(msg = null) {
 		if (msg === null || msg === '') {
-			await this.YouTube.actions.play()
+			await this.mpvPlayer.play()
 			return
 		}
 		if (msg.includes('youtube.com')) {
 			await this.actions.send('Okay, lo busco')
-			const anuncios = await this.YouTube.goto(msg)
-			if (anuncios > 0) {
-				await this.actions.send(`He encontrado ${anuncios} anuncios`)
-			} else {
-				await this.actions.send('Listo, lo he encontrado')
-			}
+			await this.mpvPlayer.load(msg);
+			console.log("reproducing....");
+			await this.actions.send('Listo, lo he encontrado')
 			return
 		}
 		await this.actions.send('No se ha encontrado el video')
 	}
 	async pause(msg = null) {
-		await this.YouTube.actions.pause()
+		await this.mpvPlayer.pause()
 		await this.actions.send('Pausado')
 	}
 	async volume(msg = null) {
@@ -54,7 +52,7 @@ export default class commandList {
 			await this.actions.send('El número debe estar entre 0 y 100')
 			return
 		}
-		await this.YouTube.actions.setVolume(volume)
+		await this.mpvPlayer.volume(volume)
 		await this.actions.send(`Volumen cambiado a ${volume}`)
 	}
 }
